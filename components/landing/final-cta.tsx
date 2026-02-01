@@ -10,7 +10,7 @@ export function FinalCTA() {
   return (
     <section
       id="cta"
-      className="border-b border-border/40 px-6 py-24 md:py-32"
+      className="border-b border-border/40 px-6 py-16 md:py-20"
       aria-labelledby="cta-heading"
     >
       <div className="container mx-auto max-w-2xl text-center">

@@ -35,7 +35,7 @@ export function FAQ() {
   return (
     <section
       id="faq"
-      className="border-b border-border/40 px-6 py-24 md:py-32"
+      className="border-b border-border/40 px-6 py-16 md:py-20"
       aria-labelledby="faq-heading"
     >
       <div className="container mx-auto max-w-3xl">

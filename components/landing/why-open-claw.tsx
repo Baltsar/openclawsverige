@@ -48,7 +48,7 @@ export function WhyOpenClaw() {
   return (
     <section
       id="varfor"
-      className="border-b border-border/40 px-6 py-24 md:py-32"
+      className="border-b border-border/40 px-6 py-16 md:py-20"
       aria-labelledby="why-heading"
     >
       <div className="container mx-auto max-w-6xl">
@@ -63,7 +63,7 @@ export function WhyOpenClaw() {
           Varför ett svenskt OpenClaw-community?
         </motion.h2>
         <motion.div
-          className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+          className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
           variants={container}
           initial="hidden"
           whileInView="show"

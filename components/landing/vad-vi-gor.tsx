@@ -14,7 +14,7 @@ export function VadViGor() {
   return (
     <section
       id="vad-vi-gor"
-      className="border-b border-border/40 px-6 py-24 md:py-32"
+      className="border-b border-border/40 px-6 py-16 md:py-20"
       aria-labelledby="vad-heading"
     >
       <div className="container mx-auto max-w-3xl">
@@ -28,7 +28,7 @@ export function VadViGor() {
         >
           Vad händer i communityt?
         </motion.h2>
-        <ul className="mt-12 space-y-5">
+        <ul className="mt-8 space-y-6">
           {items.map((text, i) => (
             <motion.li
               key={text}

@@ -13,7 +13,7 @@ export function EarlyAdopter() {
   return (
     <section
       id="early-adopter"
-      className="border-b border-border/40 px-6 py-24 md:py-32"
+      className="border-b border-border/40 px-6 py-16 md:py-20"
       aria-labelledby="early-heading"
     >
       <div className="container mx-auto max-w-4xl">

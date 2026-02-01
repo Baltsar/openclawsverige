@@ -16,7 +16,7 @@ export function CommunityBenefits() {
   return (
     <section
       id="vad-far-du"
-      className="border-b border-border/40 bg-card/30 px-6 py-24 md:py-32"
+      className="border-b border-border/40 bg-card/30 px-6 py-16 md:py-20"
       aria-labelledby="benefits-heading"
     >
       <div className="container mx-auto max-w-3xl">
@@ -30,7 +30,7 @@ export function CommunityBenefits() {
         >
           Vad får du?
         </motion.h2>
-        <ul className="mt-12 space-y-5">
+        <ul className="mt-8 space-y-4">
           {benefits.map((text, i) => (
             <motion.li
               key={text}

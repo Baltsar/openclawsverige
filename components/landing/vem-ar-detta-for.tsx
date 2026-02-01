@@ -1,5 +1,7 @@
 "use client";
 
+import { Card, CardContent } from "@/components/ui/card";
+import { Check } from "lucide-react";
 import { motion } from "framer-motion";
 
 const points = [
@@ -8,22 +10,34 @@ const points = [
   "Vill experimentera med OpenClaw",
   "Föredrar svenskt community framför globala",
   "Gillar open source och kunskapsdelning",
-  "Vill bygga, inte bara prata",
 ];
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.05 },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 8 },
+  show: { opacity: 1, y: 0 },
+};
 
 export function VemArDettaFor() {
   return (
     <section
       id="vem"
-      className="border-b border-border/40 bg-card/30 px-6 py-24 md:py-32"
+      className="border-b border-border/40 bg-card/30 px-6 py-16 md:py-20"
       aria-labelledby="vem-heading"
     >
       <div className="container mx-auto max-w-5xl">
         <motion.div
-          className="grid gap-16 lg:grid-cols-2 lg:items-center"
+          className="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-12"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.4 }}
         >
           <div>
@@ -33,27 +47,36 @@ export function VemArDettaFor() {
             >
               Vem är detta för?
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
+            <p className="mt-3 text-lg text-muted-foreground">
               Du passar här om du:
             </p>
-          </div>
-          <div className="space-y-4">
-            {points.map((p, i) => (
-              <motion.p
-                key={p}
-                className="flex gap-3 text-muted-foreground"
-                initial={{ opacity: 0, x: 12 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-20px" }}
-                transition={{ duration: 0.3, delay: i * 0.04 }}
-              >
-                <span className="text-emerald-500">•</span> {p}
-              </motion.p>
-            ))}
-            <p className="pt-4 font-medium text-foreground">
-              Du behöver INTE vara expert – vi lär oss tillsammans.
+            <p className="mt-6 font-medium text-foreground">
+              Vi är vibecodare. Du behöver INTE vara expert – vi lär oss
+              tillsammans.
             </p>
           </div>
+          <motion.ul
+            className="grid gap-3 sm:grid-cols-2"
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-40px" }}
+          >
+            {points.map((p) => (
+              <motion.li key={p} variants={item}>
+                <Card className="border-border/60 bg-background/50 transition-colors hover:border-emerald-500/30 hover:bg-background/80">
+                  <CardContent className="flex flex-row items-center gap-3 p-4">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
+                      <Check className="h-3.5 w-3.5" />
+                    </span>
+                    <span className="text-sm font-medium text-foreground/90">
+                      {p}
+                    </span>
+                  </CardContent>
+                </Card>
+              </motion.li>
+            ))}
+          </motion.ul>
         </motion.div>
       </div>
     </section>
