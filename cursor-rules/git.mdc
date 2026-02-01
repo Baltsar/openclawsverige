@@ -1,0 +1,110 @@
+---
+description: Git workflow and commit message standards
+alwaysApply: true
+---
+
+# Git Workflow
+
+## Commit Format (Conventional Commits)
+
+```
+<type>(<scope>): <description>
+```
+
+### Types:
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation
+- `style`: Formatting
+- `refactor`: Code restructuring
+- `test`: Tests
+- `chore`: Maintenance
+
+### Examples:
+
+```bash
+feat: add user authentication
+feat(auth): add login page
+fix: resolve button alignment
+fix(ui): correct mobile menu
+style: format with prettier
+refactor: simplify validation
+docs: update README
+test: add API tests
+chore: update dependencies
+```
+
+### Breaking Changes:
+
+```bash
+feat!: change API format
+
+BREAKING CHANGE: Returns { data, error } now
+```
+
+## Workflow
+
+After user approves:
+
+1. Build feature
+2. Run tests (type-check, lint, build)
+3. Fix errors
+4. Stage: `git add .`
+5. Commit: `git commit -m "[message]"`
+6. Show commit to user
+7. Ask: "Push to production?"
+8. If yes: `git push origin main`
+
+## Generate Good Messages
+
+Based on what you built:
+
+**Built:** User profile page  
+**Commit:** `feat(profile): add user profile page`
+
+**Built:** Fixed broken form  
+**Commit:** `fix(contact): resolve form submission`
+
+**Built:** Updated button colors  
+**Commit:** `style(button): update color scheme`
+
+## Multi-File Changes
+
+```bash
+feat: add user dashboard
+
+- Created dashboard page
+- Added stats widget
+- Implemented data fetching
+- Added responsive layout
+```
+
+## Never Commit:
+
+❌ Broken code
+❌ console.log
+❌ Commented code
+❌ TODO comments
+❌ .env files
+❌ node_modules
+
+## Always Commit:
+
+✅ Source code
+✅ Config files
+✅ package.json
+✅ Type definitions
+✅ Documentation
+
+## .gitignore
+
+Ensure exists:
+```
+node_modules/
+.next/
+.env
+.env*.local
+npm-debug.log*
+.DS_Store
+.vercel
+```

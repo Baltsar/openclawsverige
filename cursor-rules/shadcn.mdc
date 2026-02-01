@@ -1,0 +1,147 @@
+---
+description: ShadCN/UI component patterns - UI library standards
+globs:
+  - "components/**/*.tsx"
+autoAttach: true
+---
+
+# ShadCN/UI Rules
+
+## Installation
+
+Add components:
+```bash
+npx shadcn@latest add button
+npx shadcn@latest add card
+npx shadcn@latest add input
+npx shadcn@latest add form
+npx shadcn@latest add dialog
+npx shadcn@latest add select
+```
+
+## Import and Use
+
+```typescript
+import { Button } from "@/components/ui/button"
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+
+export function Example() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Title</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Button>Click me</Button>
+      </CardContent>
+    </Card>
+  )
+}
+```
+
+## Button Variants
+
+```typescript
+<Button>Default</Button>
+<Button variant="destructive">Delete</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="ghost">Ghost</Button>
+<Button size="sm">Small</Button>
+<Button size="lg">Large</Button>
+```
+
+## Form Pattern
+
+```typescript
+"use client"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { z } from "zod"
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+
+const schema = z.object({
+  email: z.string().email(),
+})
+
+export function LoginForm() {
+  const form = useForm({
+    resolver: zodResolver(schema),
+  })
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit">Submit</Button>
+      </form>
+    </Form>
+  )
+}
+```
+
+## Dialog/Modal
+
+```typescript
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
+
+export function UserDialog() {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Open</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Title</DialogTitle>
+        </DialogHeader>
+        <p>Content here</p>
+      </DialogContent>
+    </Dialog>
+  )
+}
+```
+
+## Design Tokens
+
+Use CSS variables:
+```typescript
+bg-background
+text-foreground
+bg-primary
+text-primary-foreground
+bg-destructive
+text-destructive-foreground
+border-border
+```
+
+## Never Modify
+
+❌ Don't edit files in `components/ui/`
+
+✅ Create wrappers:
+```typescript
+// components/shared/custom-button.tsx
+import { Button } from "@/components/ui/button"
+
+export function CustomButton() {
+  return (
+    <Button className="bg-gradient-to-r from-purple-500 to-pink-500">
+      Custom
+    </Button>
+  )
+}
+```

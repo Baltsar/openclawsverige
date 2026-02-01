@@ -1,0 +1,141 @@
+---
+description: React and Next.js patterns - Server Components first
+globs:
+  - "**/*.tsx"
+  - "app/**/*.ts"
+autoAttach: true
+---
+
+# React & Next.js Rules
+
+## Server Components (Default)
+
+ALL components are Server Components by default. No "use client" needed.
+
+```typescript
+// Server Component - can fetch data
+export default async function UserProfile({ userId }: { userId: string }) {
+  const user = await db.user.findUnique({ where: { id: userId } })
+  
+  return (
+    <div>
+      <h1>{user.name}</h1>
+      <p>{user.email}</p>
+    </div>
+  )
+}
+```
+
+Use for:
+- Data fetching
+- Database access
+- Environment variables
+- Static content
+- SEO content
+
+## Client Components (Only When Needed)
+
+Add `"use client"` only for:
+- useState, useEffect, hooks
+- Event handlers (onClick, onChange)
+- Browser APIs (window, localStorage)
+- Animations
+- Real-time updates
+
+```typescript
+"use client"
+import { useState } from "react"
+
+export function Counter() {
+  const [count, setCount] = useState(0)
+  
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Count: {count}
+    </button>
+  )
+}
+```
+
+## Styling (Tailwind Only)
+
+```typescript
+// ✅ YES
+<div className="flex items-center justify-between p-4 bg-white rounded-lg shadow">
+  <h2 className="text-xl font-semibold">Title</h2>
+</div>
+
+// ❌ NO inline styles
+<div style={{ display: 'flex', padding: '1rem' }}>
+  <h2 style={{ fontSize: '1.25rem' }}>Title</h2>
+</div>
+```
+
+## Error Handling (Always)
+
+```typescript
+// ✅ Proper
+async function fetchData() {
+  try {
+    const response = await fetch('/api/data')
+    if (!response.ok) throw new Error(`HTTP ${response.status}`)
+    return await response.json()
+  } catch (error) {
+    console.error('Fetch error:', error)
+    throw error
+  }
+}
+
+// ❌ No error handling
+async function fetchData() {
+  const response = await fetch('/api/data')
+  return await response.json()
+}
+```
+
+## Loading States
+
+```typescript
+"use client"
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+
+export function DataLoader() {
+  const [loading, setLoading] = useState(false)
+  const [data, setData] = useState(null)
+
+  async function loadData() {
+    setLoading(true)
+    try {
+      const response = await fetch('/api/data')
+      const result = await response.json()
+      setData(result)
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <Button onClick={loadData} disabled={loading}>
+      {loading ? 'Loading...' : 'Load Data'}
+    </Button>
+  )
+}
+```
+
+## Responsive Design
+
+```typescript
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <Card>...</Card>
+</div>
+```
+
+Breakpoints:
+- sm: 640px
+- md: 768px  
+- lg: 1024px
+- xl: 1280px
+- 2xl: 1536px

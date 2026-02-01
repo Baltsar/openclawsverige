@@ -1,0 +1,101 @@
+---
+description: TypeScript strict mode rules - prevent type errors
+globs:
+  - "**/*.ts"
+  - "**/*.tsx"
+autoAttach: true
+---
+
+# TypeScript Rules
+
+## Never Use
+
+❌ `any` type
+❌ `@ts-ignore`
+❌ `!` non-null assertion without checking
+❌ Skipping types on parameters
+
+## Always Use
+
+✅ Proper interfaces/types
+✅ Strict null checks
+✅ Optional chaining `?.`
+✅ Nullish coalescing `??`
+
+## Common Patterns
+
+### API Response:
+```typescript
+interface ApiResponse<T> {
+  data?: T
+  error?: string
+  success: boolean
+}
+
+interface User {
+  id: string
+  name: string
+  email: string
+}
+
+const response: ApiResponse<User> = await fetch('/api/user').then(r => r.json())
+```
+
+### Form Data (Zod):
+```typescript
+import { z } from "zod"
+
+const schema = z.object({
+  name: z.string().min(2),
+  email: z.string().email(),
+})
+
+type FormData = z.infer<typeof schema>
+```
+
+### Component Props:
+```typescript
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'default' | 'destructive'
+  size?: 'sm' | 'md' | 'lg'
+  isLoading?: boolean
+}
+
+export function Button({ variant = 'default', ...props }: ButtonProps) {
+  return <button {...props} />
+}
+```
+
+### Server Actions:
+```typescript
+"use server"
+
+interface CreateUserInput {
+  name: string
+  email: string
+}
+
+interface CreateUserResult {
+  success: boolean
+  user?: User
+  error?: string
+}
+
+export async function createUser(input: CreateUserInput): Promise<CreateUserResult> {
+  try {
+    const user = await db.user.create({ data: input })
+    return { success: true, user }
+  } catch (error) {
+    return { success: false, error: 'Failed to create user' }
+  }
+}
+```
+
+## Before Commit
+
+ALWAYS run:
+```bash
+npm run type-check
+```
+
+If errors: fix them, don't ignore them.

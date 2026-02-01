@@ -1,0 +1,135 @@
+---
+description: Anti-hallucination protocol - never invent things
+alwaysApply: true
+---
+
+# Anti-Hallucination Protocol
+
+## Core Rule
+
+NEVER INVENT. ALWAYS VERIFY.
+
+If uncertain → Check first. Never guess.
+
+## Forbidden
+
+### ❌ Inventing Packages
+
+```typescript
+// DON'T invent
+import { fake } from "nonexistent-lib"
+
+// DO check first
+cat package.json | grep "package-name"
+// If not found: npm install package-name
+```
+
+Before importing ANY package:
+1. Check package.json
+2. If missing → Install first
+3. Then import
+
+### ❌ Inventing API Routes
+
+```typescript
+// DON'T invent
+fetch('/api/fake-endpoint')
+
+// DO check first
+ls app/api/
+// If missing → Create route first
+```
+
+Before calling API:
+1. Check file exists: `app/api/[route]/route.ts`
+2. If missing → Create it
+3. Then call it
+
+### ❌ Inventing Methods
+
+```typescript
+// DON'T invent
+prisma.user.magicMethod()
+
+// DO use documented
+prisma.user.findUnique({ where: { id } })
+```
+
+Before using methods:
+1. Check documentation
+2. Search codebase for examples
+3. Use only documented APIs
+
+### ❌ Skipping Errors
+
+```typescript
+// DON'T skip
+const data = await fetch(url).then(r => r.json())
+
+// DO handle
+try {
+  const response = await fetch(url)
+  if (!response.ok) throw new Error(`HTTP ${response.status}`)
+  return await response.json()
+} catch (error) {
+  console.error(error)
+  throw error
+}
+```
+
+## Verification Commands
+
+### Check Package:
+```bash
+npm list package-name
+```
+
+### Check File:
+```bash
+ls path/to/file
+```
+
+### Check API Route:
+```bash
+ls app/api/endpoint/route.ts
+```
+
+## When Uncertain
+
+If unsure about:
+- Package installed?
+- API exists?
+- Method supported?
+- Config option valid?
+
+**SAY:**
+```
+Need to verify [X]. Checking...
+[run command]
+[not found]
+Should I create it or use alternative?
+```
+
+## Trust Only
+
+✅ package.json (packages)
+✅ Existing files
+✅ Official docs
+✅ Code in project
+✅ User instructions
+
+❌ Your "memory"
+❌ Assumptions
+❌ Guesses
+❌ Hypothetical features
+
+## Before Commit
+
+Verify:
+- [ ] All imports in package.json
+- [ ] All API routes exist
+- [ ] All methods documented
+- [ ] Error handling everywhere
+- [ ] No invented functions
+
+If any fail → Fix first.

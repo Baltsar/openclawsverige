@@ -1,0 +1,108 @@
+---
+description: Automated testing - MUST pass before commit
+alwaysApply: true
+---
+
+# Testing Protocol
+
+## Pre-Commit Checks (MANDATORY)
+
+Before EVERY commit run:
+
+```bash
+npm run type-check  # TypeScript
+npm run lint        # ESLint
+npm run build       # Next.js build
+```
+
+ALL must pass. No exceptions.
+
+## If Tests Fail
+
+YOU fix errors autonomously:
+
+1. Read error message
+2. Identify issue
+3. Fix code
+4. Re-run ALL tests
+5. Repeat until clean
+
+NEVER ask user to fix.
+
+## Common Fixes
+
+### TypeScript Error:
+```bash
+Error: Property 'name' does not exist
+
+Fix:
+interface User { name: string }
+const user: User = { name: "John" }
+```
+
+### ESLint Error:
+```bash
+Error: Missing dependency in useEffect
+
+Fix:
+useEffect(() => {
+  fetchData(userId)
+}, [userId])  // Add dependency
+```
+
+### Build Error:
+```bash
+Error: Module not found
+
+Fix:
+npm install [package-name]
+```
+
+## Test Output Format
+
+Show user:
+```
+✅ Tests Complete
+
+TypeScript: ✓ No errors
+ESLint: ✓ Passed
+Build: ✓ Success
+
+Ready to commit.
+```
+
+Or:
+```
+❌ Tests Failed
+
+TypeScript: ✗ 2 errors
+- Fixed missing type
+- Fixed import
+
+Re-running...
+✅ All tests passed
+```
+
+## Never Skip
+
+Even for "small changes" - ALWAYS test.
+
+Typos break builds.
+Missing imports crash production.
+
+## Package.json Scripts
+
+Ensure these exist:
+```json
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
+  }
+}
+```
+
+If missing, add them.

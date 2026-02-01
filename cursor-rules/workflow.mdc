@@ -1,0 +1,131 @@
+---
+description: Task management workflow for complex features
+alwaysApply: false
+---
+
+# Workflow Management
+
+## When to Use
+
+For complex features (>5 steps), create `.cursor/task.md`
+
+## Task Template
+
+```markdown
+# Task: [Feature Name]
+
+## Goal
+[What we're building]
+
+## Plan
+1. [Step 1]
+2. [Step 2]
+3. [Step 3]
+
+## Verification
+- [ ] TypeScript compiles
+- [ ] ESLint passes
+- [ ] Build succeeds
+- [ ] Works in browser
+- [ ] No console errors
+- [ ] Mobile responsive
+
+## Status
+IN_PROGRESS
+```
+
+## Process
+
+1. **User describes complex feature**
+
+2. **Create task.md:**
+```markdown
+# Task: User Dashboard
+
+## Goal
+Dashboard with stats and activity feed
+
+## Plan
+1. Dashboard page structure
+2. Stats component
+3. Activity feed
+4. API endpoints
+
+## Status
+IN_PROGRESS
+```
+
+3. **Show plan to user:**
+```
+I'll build a dashboard with:
+1. Page structure
+2. Stats widget  
+3. Activity feed
+4. API for data
+
+Proceed?
+```
+
+4. **Execute step-by-step:**
+```
+✓ Step 1/4: Dashboard structure
+  Moving to Step 2...
+```
+
+5. **Update task.md as you go**
+
+6. **Mark complete:**
+```markdown
+## Status
+DONE
+```
+
+Then ask: "Push to production?"
+
+## Simple Tasks
+
+User: "Change button color"
+
+Skip workflow - just do it.
+
+## Status Values
+
+- `IN_PROGRESS` - Working
+- `TESTING` - Running tests
+- `DONE` - Ready to commit
+
+## Example
+
+**User:** "Build blog with posts, categories, search"
+
+**task.md:**
+```markdown
+# Task: Blog System
+
+## Goal
+Blog with posts, categories, and search
+
+## Plan
+1. Post list page
+2. Individual post page
+3. Category filter
+4. Search functionality
+5. API routes
+
+## Status
+IN_PROGRESS
+```
+
+**Progress:**
+```
+✓ Step 1/5: Post list page
+✓ Step 2/5: Post page
+✓ Step 3/5: Categories
+✓ Step 4/5: Search
+✓ Step 5/5: APIs
+
+All complete!
+Tests passed.
+
+Push to production?
+```
