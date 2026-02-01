@@ -7,7 +7,12 @@ const inter = Inter({
   variable: "--font-sans",
 });
 
-const SITE_URL = "https://opensverige.se";
+const SITE_URL =
+  process.env.VERCEL_URL !== undefined
+    ? `https://${process.env.VERCEL_URL}`
+    : process.env.NEXT_PUBLIC_SITE_URL ?? "https://opensverige.se";
+
+const OG_IMAGE = `${SITE_URL}/1200x630_opensverige.png`;
 
 const TITLE = "Open Claw Sverige – Svenskt OpenClaw Community för AI-utvecklare";
 const DESCRIPTION =
@@ -40,10 +45,11 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     images: [
       {
-        url: "/1200x630_opensverige.png",
+        url: OG_IMAGE,
         width: 1200,
         height: 630,
         alt: TITLE,
+        type: "image/png",
       },
     ],
   },
@@ -51,7 +57,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
-    images: ["/1200x630_opensverige.png"],
+    images: [OG_IMAGE],
   },
   robots: {
     index: true,
