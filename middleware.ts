@@ -8,16 +8,18 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const hostHeader = request.headers.get("host");
-  const hostname = hostHeader ? hostHeader.split(":")[0] : null;
+  const forwardedHost = request.headers.get("x-forwarded-host");
+  const hostHeader = forwardedHost ?? request.headers.get("host");
+  const hostname = hostHeader
+    ? hostHeader.split(",")[0].trim().split(":")[0]
+    : null;
   if (!hostname || hostname === PRIMARY_HOST) {
     return NextResponse.next();
   }
 
   const isVercelHost = hostname.endsWith(".vercel.app");
-  const isWwwHost = hostname === `www.${PRIMARY_HOST}`;
 
-  if (isVercelHost || isWwwHost) {
+  if (isVercelHost) {
     const url = request.nextUrl.clone();
     url.hostname = PRIMARY_HOST;
     url.protocol = "https:";
