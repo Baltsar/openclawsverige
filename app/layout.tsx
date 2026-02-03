@@ -22,7 +22,7 @@ const OG_IMAGE_URL = new URL(OG_IMAGE_PATH, SITE_URL).toString();
 
 const TITLE = "Open Claw Sverige – Svenskt OpenClaw Community för AI-utvecklare";
 const DESCRIPTION =
-  "Gå med i Open Claw Sverige – det svenska communityt för OpenClaw AI-agenter. Samarbeta med svenska utvecklare, dela kod och bygg AI-lösningar tillsammans. Discord + Facebook-grupp.";
+  "Sveriges community för OpenClaw-agenter: bygg, dela och testa AI-workflows med andra utvecklare. Discord + Facebook, gratis och öppet.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
