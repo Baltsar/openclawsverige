@@ -7,12 +7,18 @@ const inter = Inter({
   variable: "--font-sans",
 });
 
-const SITE_URL =
-  process.env.VERCEL_URL !== undefined
-    ? `https://${process.env.VERCEL_URL}`
-    : process.env.NEXT_PUBLIC_SITE_URL ?? "https://opensverige.se";
+const DEFAULT_SITE_URL = "https://opensverige.se";
+const VERCEL_ENV = process.env.VERCEL_ENV;
+const VERCEL_HOST = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : undefined;
 
-const OG_IMAGE = `${SITE_URL}/1200x630_opensverige.png`;
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (VERCEL_ENV === "production" ? DEFAULT_SITE_URL : VERCEL_HOST ?? DEFAULT_SITE_URL);
+
+const OG_IMAGE_PATH = "/1200x630_opensverige.png";
+const OG_IMAGE_URL = new URL(OG_IMAGE_PATH, SITE_URL).toString();
 
 const TITLE = "Open Claw Sverige – Svenskt OpenClaw Community för AI-utvecklare";
 const DESCRIPTION =
@@ -45,7 +51,7 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     images: [
       {
-        url: OG_IMAGE,
+        url: OG_IMAGE_URL,
         width: 1200,
         height: 630,
         alt: TITLE,
@@ -57,7 +63,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
-    images: [OG_IMAGE],
+    images: [
+      {
+        url: OG_IMAGE_URL,
+        alt: TITLE,
+      },
+    ],
   },
   robots: {
     index: true,
