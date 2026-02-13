@@ -5,11 +5,11 @@ import { Check } from "lucide-react";
 import { motion } from "framer-motion";
 
 const points = [
-  "Kodar i Python/TypeScript/JavaScript",
-  "Är nyfiken på AI-agenter och automation",
-  "Vill experimentera med OpenClaw",
-  "Föredrar svenskt community framför globala",
-  "Gillar open source och kunskapsdelning",
+  "Bygger eller vill bygga AI-agenter",
+  "Experimenterar med multi-agent-system, MCP, tool use",
+  "Vibecodar, promptar, eller skriver från scratch — alla nivåer",
+  "Vill ha ett svenskt community istället för att drunkna i globala Discord-servrar",
+  "Föredrar att bygga framför att prata om att bygga",
 ];
 
 const container = {
@@ -51,8 +51,8 @@ export function VemArDettaFor() {
               Du passar här om du:
             </p>
             <p className="mt-6 font-medium text-foreground">
-              Vi är vibecodare. Du behöver INTE vara expert – vi lär oss
-              tillsammans.
+              Du behöver inte vara expert. Du behöver inte ens ha en fungerande
+              agent. Du behöver bara vilja bygga en.
             </p>
           </div>
           <motion.ul

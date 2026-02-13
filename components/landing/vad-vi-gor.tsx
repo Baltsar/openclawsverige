@@ -3,11 +3,12 @@
 import { motion } from "framer-motion";
 
 const items = [
-  "Bygger AI-agenter tillsammans – Från enkla automationer till avancerade workflows",
-  "Delar kod & templates – Färdiga lösningar du kan kopiera och anpassa direkt",
-  "Löser problem kollektivt – Fastnat? Någon i communityt har troligen svaret",
-  "Experimenterar med nya idéer – Think tank för svenska AI-innovationer",
-  "Organiserar coding sessions – Spontana mob programming-sessioner på Discord",
+  "Autonoma agenter som löser verkliga problem",
+  "Multi-agent-system där agenter samarbetar",
+  "MCP-servrar och tool use-integrationer",
+  "Automationsflöden och AI-pipelines",
+  "Verktyg ovanpå LLMs — inte bara wrappers, utan agenter med minne, verktyg och mål",
+  "Allt från vibecodade prototyper till produktionssystem",
 ];
 
 export function VadViGor() {
@@ -26,7 +27,7 @@ export function VadViGor() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.4 }}
         >
-          Vad händer i communityt?
+          Vad bygger folk?
         </motion.h2>
         <ul className="mt-8 space-y-6">
           {items.map((text, i) => (

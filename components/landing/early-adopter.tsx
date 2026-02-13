@@ -3,10 +3,10 @@
 import { motion } from "framer-motion";
 
 const bullets = [
-  "Du kan forma communityts riktning",
-  "Möjlighet att bli moderator/community leader",
-  "Tidigt nätverk med framtidens svenska AI-builders",
-  "Ingen fluff, bara folk som verkligen vill bygga",
+  "Forma communityts riktning — vi lyssnar på de som dyker upp",
+  "Starta en lokal nod i din stad",
+  "Bygg ditt nätverk med framtidens svenska AI-builders",
+  "Ingen fluff, inga sponsorpitchar — bara folk som bygger",
 ];
 
 export function EarlyAdopter() {
@@ -28,11 +28,8 @@ export function EarlyAdopter() {
             id="early-heading"
             className="text-2xl font-bold tracking-tight text-emerald-400 md:text-3xl"
           >
-            Vi har precis börjat – och det är din chans
+            Vi har precis börjat
           </h2>
-          <p className="mt-4 text-muted-foreground">
-            Vi är i uppstartsfasen. Det betyder:
-          </p>
           <ul className="mt-4 space-y-2">
             {bullets.map((b) => (
               <li key={b} className="flex gap-2 text-foreground/90">
@@ -41,10 +38,6 @@ export function EarlyAdopter() {
               </li>
             ))}
           </ul>
-          <p className="mt-6 text-muted-foreground">
-            OpenClaw har gått från 0 till miljontals användare på veckor
-            globalt. Nu bygger vi svenska hubben.
-          </p>
         </motion.article>
       </div>
     </section>

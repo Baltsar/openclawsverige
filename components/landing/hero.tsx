@@ -25,7 +25,7 @@ export function Hero() {
           <div className="relative h-24 w-24 shrink-0 md:h-28 md:w-28 lg:h-32 lg:w-32">
             <Image
               src="/500x500-opensverige_transp.png"
-              alt="Open Claw Sverige – Clawbot med svensk flagga"
+              alt="opensverige – AI agent-community"
               fill
               className="object-contain object-center"
               priority
@@ -41,9 +41,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            Bygg AI-agenter.
-            <br />
-            Tillsammans med andra svenskar.
+            Det svenska AI agent-communityt.
           </motion.h1>
           <motion.p
             className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground md:text-xl lg:mx-0"
@@ -51,9 +49,9 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Open Claw Sverige är det svenska OpenClaw-communityt där vi
-            experimenterar, delar kod och bygger AI-lösningar – på svenska, för
-            svenskar.
+            opensverige samlar folk som bygger AI-agenter i Sverige. Vi delar
+            kod, ses IRL, och hjälper varandra skicka saker — oavsett om du kör
+            OpenClaw, CrewAI, MCP, eller bygger eget.
           </motion.p>
           <motion.div
             className="mt-6 flex flex-col items-center gap-4 sm:flex-row lg:justify-start"
@@ -88,7 +86,7 @@ export function Hero() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.35 }}
           >
-            Gratis. Öppen källkod. Inga krav.
+            Gratis. Öppen källkod. Verktygsagnostiskt.
           </motion.p>
         </div>
       </div>

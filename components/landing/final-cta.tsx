@@ -22,7 +22,7 @@ export function FinalCTA() {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.4 }}
         >
-          Redo att börja bygga?
+          Redo?
         </motion.h2>
         <motion.p
           className="mt-4 text-lg text-muted-foreground"
@@ -31,7 +31,7 @@ export function FinalCTA() {
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.4, delay: 0.05 }}
         >
-          Gå med idag. Dela dina idéer. Bygg någonting häftigt.
+          Gå med idag. Visa vad du bygger. Eller bara lurka tills du är redo.
         </motion.p>
         <motion.div
           className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row"

@@ -10,24 +10,24 @@ import { motion } from "framer-motion";
 
 const faqs = [
   {
-    question: "Vad är Open Claw Sverige?",
+    question: "Vad är opensverige?",
     answer:
-      "Open Claw Sverige är det svenska communityt för OpenClaw-utvecklare. Vi samlas på Discord och Facebook för att bygga AI-agenter, dela kod och hjälpa varandra.",
+      "opensverige är det svenska AI agent-communityt. Vi samlas på Discord och Facebook, ses IRL på byggsessioner, och hjälper varandra bygga agenter — oavsett verktyg (OpenClaw, CrewAI, MCP, eget).",
   },
   {
     question: "Vem kan gå med?",
     answer:
-      "Alla som är intresserade av OpenClaw och AI-agenter är välkomna. Du behöver inte vara expert – vi lär oss tillsammans.",
+      "Alla som vill bygga eller lära sig bygga AI-agenter. Du behöver inte vara expert eller ens ha en fungerande agent — bara vilja bygga.",
   },
   {
     question: "Varför ett svenskt community?",
     answer:
-      "Många föredrar att diskutera och samarbeta på svenska, i samma tidszon, med liknande kulturell kontext.",
+      "På svenska, i din tidszon. Inga språkbarriärer, och vi kör dessutom fysiska byggsessioner runt om i Sverige.",
   },
   {
     question: "Kostar det något?",
     answer:
-      "Nej, Open Claw Sverige är helt gratis och bygger på open source-filosofin.",
+      "Nej. opensverige är gratis, öppet och verktygsagnostiskt. Inga krav.",
   },
 ];
 

@@ -1,33 +1,33 @@
 "use client";
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Flag, Wrench, Rocket, Handshake } from "lucide-react";
+import { Bot, Globe, Users, Wrench } from "lucide-react";
 import { motion } from "framer-motion";
 
 const features = [
   {
-    title: "Samarbeta på svenska",
+    title: "Agenter, inte chatbots",
     description:
-      "Inget språkbarriär. Diskutera, felsök och innovera på ditt modersmål med folk i samma tidszon.",
-    icon: Flag,
+      "Vi bygger saker som gör saker. Autonoma workflows, tool use, multi-agent-system. Nästa steg efter promptande.",
+    icon: Bot,
   },
   {
-    title: "Hands-on, inte fluff",
+    title: "På svenska, i din tidszon",
     description:
-      "Vi delar faktisk kod, verkliga use cases och konkreta lösningar. Mindre teori, mer action.",
+      "Diskutera, felsök och innovera på ditt modersmål. Inga språkbarriärer, inga tidsskillnader.",
+    icon: Globe,
+  },
+  {
+    title: "Online + IRL",
+    description:
+      "Discord för det dagliga. Fysiska byggsessioner runt om i Sverige för det som skärmar inte kan ge dig.",
+    icon: Users,
+  },
+  {
+    title: "Verktygsagnostiskt",
+    description:
+      "OpenClaw, CrewAI, AutoGen, LangGraph, MCP, Claude tool use, rå Python — vi bryr oss om vad du bygger, inte vilket ramverk du använder.",
     icon: Wrench,
-  },
-  {
-    title: "Early adopter-fördel",
-    description:
-      "OpenClaw exploderar globalt. Bli en av de första i Norden som behärskar tekniken.",
-    icon: Rocket,
-  },
-  {
-    title: "Open source first",
-    description:
-      "Vi tror på FOSS-filosofin. Allt vi bygger delas öppet. Alla kan bidra, alla får tillgång.",
-    icon: Handshake,
   },
 ];
 
@@ -60,7 +60,7 @@ export function WhyOpenClaw() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.4 }}
         >
-          Varför ett svenskt OpenClaw-community?
+          Varför opensverige?
         </motion.h2>
         <motion.div
           className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"

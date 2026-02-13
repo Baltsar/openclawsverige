@@ -9,7 +9,7 @@ export function Footer() {
             <div className="relative h-12 w-12 shrink-0">
               <Image
                 src="/500x500-opensverige_transp.png"
-                alt="Open Claw Sverige"
+                alt="opensverige"
                 fill
                 className="object-contain"
                 sizes="48px"
@@ -17,10 +17,10 @@ export function Footer() {
             </div>
             <div>
               <p className="text-sm font-medium text-foreground">
-                © {new Date().getFullYear()} Open Claw Sverige
+                © {new Date().getFullYear()} opensverige
               </p>
               <p className="mt-1 text-xs text-muted-foreground">
-                Svenskt community för OpenClaw AI-agenter. Din data, dina regler.
+                Öppet för alla. Ägt av ingen. Byggt av oss.
               </p>
             </div>
           </div>

@@ -20,33 +20,33 @@ const SITE_URL =
 const OG_IMAGE_PATH = "/1200x630_opensverige.png";
 const OG_IMAGE_URL = new URL(OG_IMAGE_PATH, SITE_URL).toString();
 
-const TITLE = "Open Claw Sverige – Svenskt OpenClaw Community för AI-utvecklare";
+const TITLE = "opensverige — Det svenska AI agent-communityt";
 const DESCRIPTION =
-  "Sveriges community för OpenClaw-agenter: bygg, dela och testa AI-workflows med andra utvecklare. Discord + Facebook, gratis och öppet.";
+  "Öppen community för folk som bygger AI-agenter i Sverige. OpenClaw, MCP, multi-agent, CrewAI. Discord + IRL.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: TITLE,
-    template: "%s | Open Claw Sverige",
+    template: "%s | opensverige",
   },
   description: DESCRIPTION,
   keywords: [
-    "OpenClaw Sverige",
-    "OpenClaw svenska",
+    "opensverige",
+    "AI agenter Sverige",
     "AI-agenter Sverige",
+    "multi-agent Sverige",
+    "MCP community",
+    "OpenClaw Sverige",
     "Svenska AI-utvecklare",
-    "OpenClaw community",
+    "CrewAI Sverige",
     "AI automation Sverige",
-    "Svensk tech community",
-    "FOSS Sverige",
-    "AI-utveckling svenska",
   ],
   openGraph: {
     type: "website",
     locale: "sv_SE",
     url: SITE_URL,
-    siteName: "Open Claw Sverige",
+    siteName: "opensverige",
     title: TITLE,
     description: DESCRIPTION,
     images: [
@@ -82,9 +82,9 @@ export const metadata: Metadata = {
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Open Claw Sverige",
+  name: "opensverige",
   url: SITE_URL,
-  description: "Svenskt community för OpenClaw AI-agenter",
+  description: "Det svenska AI agent-communityt",
   sameAs: [
     "https://discord.gg/ZE8CtUkaWD",
     "https://www.facebook.com/groups/2097332881024571",

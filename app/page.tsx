@@ -2,7 +2,8 @@ import { Header } from "@/components/landing/header";
 import { Hero } from "@/components/landing/hero";
 import { WhyOpenClaw } from "@/components/landing/why-open-claw";
 import { VadViGor } from "@/components/landing/vad-vi-gor";
-import { CommunityBenefits } from "@/components/landing/community-benefits";
+import { IRLSessioner } from "@/components/landing/irl-sessioner";
+import { JustNu } from "@/components/landing/just-nu";
 import { EarlyAdopter } from "@/components/landing/early-adopter";
 import { VemArDettaFor } from "@/components/landing/vem-ar-detta-for";
 import { FAQ } from "@/components/landing/faq";
@@ -16,9 +17,10 @@ export default function HomePage() {
       <Hero />
       <WhyOpenClaw />
       <VadViGor />
-      <CommunityBenefits />
-      <EarlyAdopter />
+      <IRLSessioner />
+      <JustNu />
       <VemArDettaFor />
+      <EarlyAdopter />
       <FAQ />
       <FinalCTA />
       <Footer />
