@@ -1,27 +1,28 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
-const DISCORD_URL = "https://discord.gg/ZE8CtUkaWD";
+const DISCORD_URL = "https://discord.gg/CSphbTk8En";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-md">
-      <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-        <a href="/" className="text-xl font-semibold tracking-tight">
-          opensverige
-        </a>
-        <nav className="flex items-center gap-3">
-          <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400">
-            Öppet community
-          </span>
-          <Button variant="discord" size="sm" asChild>
-            <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer">
-              Gå med i Discord
+    <>
+      <section className="section" style={{ marginBottom: 0 }}>
+        <div className="grid-2" style={{ marginTop: 0, alignItems: "center" }}>
+          <header className="brand-header" style={{ marginBottom: 0, textAlign: "left" }}>
+            <Link href="/" style={{ textDecoration: "none", color: "inherit" }}>
+              <h1>open<em>sverige</em></h1>
+            </Link>
+          </header>
+          <div className="button-row" style={{ marginTop: 0, justifyContent: "flex-end" }}>
+            <Link href="/blogg" style={{ color: "var(--text-muted)", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>Blogg</Link>
+            <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+              Discord →
             </a>
-          </Button>
-        </nav>
-      </div>
-    </header>
+          </div>
+        </div>
+      </section>
+      <div className="divider" />
+    </>
   );
 }

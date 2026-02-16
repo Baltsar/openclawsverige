@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>opensverige — Det svenska AI agent-communityt</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================
+       OPENSVERIGE DESIGN TOKENS — kopierat från brandguide
+       ============================================ */
+    :root {
+      --bg-deep: #0a0a0a;
+      --bg-surface: #141414;
+      --bg-card: #1a1a1a;
+      --bg-code: #0d0d0d;
+      --border: #2a2a2a;
+
+      --crayfish-red: #c4391a;
+      --crayfish-light: #e8512d;
+      --gold: #c9a55a;
+      --gold-light: #dfc07a;
+      --nordic-blue: #2E4A62;
+      --nordic-blue-light: #3d6080;
+      --umber: #3d2b1a;
+      --umber-light: #5c4530;
+      --warm-cream: #f0e6d3;
+
+      --text-primary: #e8e0d4;
+      --text-secondary: #b0a89e;
+      --text-muted: #7a756f;
+
+      --success: #4ade80;
+      --warning: var(--gold);
+      --error: var(--crayfish-light);
+      --info: var(--nordic-blue-light);
+
+      --syntax-keyword: var(--crayfish-light);
+      --syntax-string: var(--gold);
+      --syntax-comment: var(--text-muted);
+      --syntax-function: var(--nordic-blue-light);
+      --syntax-variable: var(--text-primary);
+      --syntax-number: var(--gold-light);
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'DM Sans', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+      --sp-1: 4px;
+      --sp-2: 8px;
+      --sp-3: 12px;
+      --sp-4: 16px;
+      --sp-5: 20px;
+      --sp-6: 24px;
+      --sp-8: 32px;
+      --sp-10: 40px;
+      --sp-12: 48px;
+      --sp-16: 64px;
+      --sp-20: 80px;
+
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --transition: 150ms ease;
+
+      --btn-primary-fg: var(--text-primary);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Page container */
+    .page {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: var(--sp-20) var(--sp-10);
+      background: var(--bg-deep);
+    }
+
+    /* ========== NAV ========== */
+    .site-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--sp-4) var(--sp-10);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-deep);
+    }
+    .site-nav .logo {
+      font-family: var(--font-body);
+      font-size: 20px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .site-nav .logo .logo-open { color: var(--text-primary); }
+    .site-nav .logo .logo-sverige { color: var(--gold); }
+    .site-nav .nav-links {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-4);
+    }
+    .site-nav .nav-links a {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .site-nav .nav-links a:hover {
+      color: var(--text-primary);
+    }
+    .nav-stats {
+      width: 100%;
+      padding: var(--sp-2) var(--sp-5);
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Buttons — från brandguide */
+    .btn {
+      padding: var(--sp-3) var(--sp-6);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: var(--crayfish-red);
+      color: var(--btn-primary-fg);
+    }
+    .btn-primary:hover {
+      background: var(--crayfish-light);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      border-color: var(--text-muted);
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: var(--sp-16);
+      align-items: center;
+      padding: var(--sp-20) var(--sp-10);
+      background: radial-gradient(ellipse at 70% 50%, #1a1408 0%, var(--bg-deep) 70%);
+    }
+    .hero-content {
+      max-width: 640px;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: 64px;
+      font-weight: 500;
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+    }
+    .hero-mono {
+      margin-top: var(--sp-3);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--gold);
+    }
+    .hero-sub {
+      margin-top: var(--sp-4);
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .hero-circle {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: var(--bg-surface);
+      flex-shrink: 0;
+    }
+    @media (max-width: 680px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: var(--sp-16) var(--sp-5);
+        gap: var(--sp-12);
+      }
+      .hero h1 { font-size: 40px; }
+      .hero-circle {
+        width: 200px;
+        height: 200px;
+        justify-self: center;
+      }
+    }
+
+    /* ========== SECTIONS ========== */
+    .section {
+      padding: var(--sp-16) var(--sp-10);
+      background: var(--bg-deep);
+      border-top: 1px solid var(--border);
+    }
+    .section h2 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--sp-6);
+      line-height: 1.2;
+    }
+    .section p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      max-width: 640px;
+      line-height: 1.6;
+    }
+
+    /* Grid + Cards — från brandguide */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--sp-4);
+      margin-top: var(--sp-8);
+    }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-6);
+      transition: border-color var(--transition);
+    }
+    .card:hover {
+      border-color: rgba(201, 165, 90, 0.3);
+    }
+    .card-icon {
+      font-size: 28px;
+      margin-bottom: var(--sp-3);
+    }
+    .card-title {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--sp-2);
+    }
+    .card-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    @media (max-width: 680px) {
+      .grid-3 { grid-template-columns: 1fr 1fr; }
+      .section { padding: var(--sp-10) var(--sp-5); }
+    }
+
+    /* ========== TECH DEMO — exakt sektion 11 från brandguide ========== */
+    .tech-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-top: var(--sp-6);
+    }
+    .tech-card-header {
+      background: var(--bg-card);
+      padding: var(--sp-2) var(--sp-4);
+      display: flex;
+      align-items: center;
+      gap: var(--sp-2);
+      border-bottom: 1px solid var(--border);
+    }
+    .tech-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .tech-dot.red { background: var(--crayfish-red); }
+    .tech-dot.gold { background: var(--gold); }
+    .tech-dot.blue { background: var(--nordic-blue); }
+    .tech-card-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-left: var(--sp-2);
+    }
+    .tech-card-body {
+      background: var(--bg-deep);
+      padding: var(--sp-8);
+    }
+    .tech-hero-text {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--sp-2);
+    }
+    .tech-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: var(--sp-6);
+    }
+    .tech-stats-row {
+      display: flex;
+      gap: var(--sp-8);
+      margin-bottom: var(--sp-6);
+      padding-bottom: var(--sp-6);
+      border-bottom: 1px solid var(--border);
+    }
+    .tech-stat-value {
+      font-family: var(--font-mono);
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--gold);
+    }
+    .tech-stat-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: var(--sp-1);
+    }
+    .tech-code {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-secondary);
+      background: var(--bg-code);
+      padding: var(--sp-4);
+      border-radius: var(--radius-md);
+      line-height: 1.8;
+    }
+    .tech-prompt { color: var(--nordic-blue-light); font-weight: 600; }
+    .tech-success { color: var(--success); }
+    .tech-dim { color: var(--text-muted); }
+
+    /* ========== CTA ========== */
+    .cta {
+      padding: var(--sp-20) var(--sp-10);
+      background: var(--umber);
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .cta h2 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--sp-6);
+    }
+    .cta p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-bottom: var(--sp-8);
+    }
+
+    /* ========== FOOTER — från brandguide ========== */
+    .footer {
+      text-align: center;
+      margin-top: var(--sp-20);
+      padding-top: var(--sp-10);
+      border-top: 1px solid var(--border);
+      background: var(--bg-deep);
+    }
+    .footer p {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <!-- 1. NAV -->
+  <nav class="site-nav">
+    <a href="/" class="logo"><span class="logo-open">open</span><span class="logo-sverige">sverige</span></a>
+    <div class="nav-links">
+      <a href="/blogg">Blogg</a>
+      <a href="https://discord.gg/CSphbTk8En" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Discord →</a>
+    </div>
+  </nav>
+  <div class="nav-stats">50 medlemmar · 12 skills · 3 integrationer · v0.4.2</div>
+
+  <!-- 2. HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Det svenska AI agent-communityt.</h1>
+      <p class="hero-mono">Gratis. Öppen källkod. Verktygsagnostiskt.</p>
+      <p class="hero-sub">Öppen källkod. Discord + IRL.</p>
+    </div>
+    <div class="hero-circle" aria-hidden="true"></div>
+  </section>
+
+  <!-- 3. TRE KORT -->
+  <section class="section">
+    <h2>Vad vi gör</h2>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon">⚙️</div>
+        <div class="card-title">Skills</div>
+        <div class="card-desc">Agenter, MCP, multi-agent. Öppen kod.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🤝</div>
+        <div class="card-title">Meetups</div>
+        <div class="card-desc">Fika, bygg, visa. Tre pers räcker.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">📝</div>
+        <div class="card-title">Guider</div>
+        <div class="card-desc">OpenClaw, CrewAI, lokalt. Steg för steg.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. TECH-DEMO — exakt sektion 11 Cocktailbar × Terminal -->
+  <section class="section">
+    <h2>I praktiken</h2>
+    <p>Alla tre fonterna i action. Installera en skill, kör lokalt eller i molnet.</p>
+    <div class="tech-card">
+      <div class="tech-card-header">
+        <span class="tech-dot red"></span>
+        <span class="tech-dot gold"></span>
+        <span class="tech-dot blue"></span>
+        <span class="tech-card-title">opensverige — skill dashboard</span>
+      </div>
+      <div class="tech-card-body">
+        <div class="tech-hero-text">Fortnox Integration</div>
+        <div class="tech-desc">Automatisera fakturor, bokföring och rapporter.</div>
+        <div class="tech-stats-row">
+          <div class="tech-stat">
+            <div class="tech-stat-value">247</div>
+            <div class="tech-stat-label">installationer</div>
+          </div>
+          <div class="tech-stat">
+            <div class="tech-stat-value">v1.2.0</div>
+            <div class="tech-stat-label">version</div>
+          </div>
+          <div class="tech-stat">
+            <div class="tech-stat-value">98.4%</div>
+            <div class="tech-stat-label">uptime</div>
+          </div>
+        </div>
+        <div class="tech-code">
+          <span class="tech-prompt">$</span> openclaw install fortnox-agent<br>
+          <span class="tech-success">✓</span> <span class="tech-dim">installed in 2.3s</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. CTA -->
+  <section class="cta">
+    <h2>Bygg med oss.</h2>
+    <p>Gå med. Visa vad du bygger.</p>
+    <a href="https://discord.gg/CSphbTk8En" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Discord →</a>
+    <a href="https://www.facebook.com/groups/2097332881024571" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="margin-left: var(--sp-4);">Facebook</a>
+    <p style="margin-top: var(--sp-6); font-family: var(--font-mono); font-size: 13px; color: var(--gold);">Gratis. Inga krav. Bara bygga.</p>
+  </section>
+
+  <!-- 6. FOOTER -->
+  <footer class="footer">
+    <p>© 2026 opensverige. Öppet för alla. Ägt av ingen.</p>
+  </footer>
+</body>
+</html>

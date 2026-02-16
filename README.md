@@ -28,7 +28,8 @@
 
 **Gratis. Öppen källkod. Inga krav.**
 
-👉 [**Gå med i Discord**](https://discord.gg/ZE8CtUkaWD)  
-👉 [**Facebook-gruppen**](https://www.facebook.com/groups/2097332881024571)
+👉 [**Gå med i Discord**](https://discord.gg/CSphbTk8En)  
+👉 [**Facebook-gruppen**](https://www.facebook.com/groups/2097332881024571/)  
+👉 [**LinkedIn-gruppen**](https://www.linkedin.com/groups/9544657/)
 
 Du behöver INTE vara expert – vi lär oss tillsammans.

@@ -3,8 +3,9 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
-const DISCORD_URL = "https://discord.gg/ZE8CtUkaWD";
-const FACEBOOK_URL = "https://www.facebook.com/groups/2097332881024571";
+const DISCORD_URL = "https://discord.gg/CSphbTk8En";
+const FACEBOOK_URL = "https://www.facebook.com/groups/2097332881024571/";
+const LINKEDIN_URL = "https://www.linkedin.com/groups/9544657/";
 
 export function FinalCTA() {
   return (
@@ -58,6 +59,16 @@ export function FinalCTA() {
           >
             <a href={FACEBOOK_URL} target="_blank" rel="noopener noreferrer">
               Facebook-gruppen
+            </a>
+          </Button>
+          <Button
+            variant="outline"
+            size="lg"
+            className="min-w-[200px] border-border bg-transparent transition-transform hover:scale-[1.02] hover:bg-secondary active:scale-[0.98]"
+            asChild
+          >
+            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
+              LinkedIn
             </a>
           </Button>
         </motion.div>
