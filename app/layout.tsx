@@ -37,7 +37,7 @@ const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ??
   (VERCEL_ENV === "production" ? DEFAULT_SITE_URL : VERCEL_HOST ?? DEFAULT_SITE_URL);
 
-const OG_IMAGE_PATH = "/assets/1200x630_opensverige.png";
+const OG_IMAGE_PATH = "/assets/1200x_hand.png";
 const OG_IMAGE_URL = new URL(OG_IMAGE_PATH, SITE_URL).toString();
 
 const TITLE = "opensverige — Det svenska AI agent-communityt";
