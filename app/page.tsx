@@ -4,6 +4,7 @@ import { SiteNav } from "@/components/landing/site-nav";
 const DISCORD_URL = "https://discord.gg/CSphbTk8En";
 const FACEBOOK_URL = "https://www.facebook.com/groups/2097332881024571/";
 const LINKEDIN_URL = "https://www.linkedin.com/groups/9544657/";
+const RADAR_URL = "/radar";
 
 export default function HomePage() {
   return (
@@ -114,6 +115,9 @@ export default function HomePage() {
                 Vibecodade prototyper till produktionsystem
               </div>
             </div>
+            <p className="section section-radar-cta">
+              Osäker på vilket ramverk som passar? <Link href={RADAR_URL} className="section-radar-link">Agent Radar</Link> jämför mognad, risk och stabilitet — live från GitHub.
+            </p>
           </div>
 
           {/* 8. IRL-format — timeline; t-heading + gold för subhead (brandguide) */}

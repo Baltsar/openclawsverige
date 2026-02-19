@@ -285,6 +285,18 @@ main {
   line-height: 1.6;
 }
 .section p + p { margin-top: var(--sp-3); }
+.section-radar-cta { margin-top: var(--sp-6); max-width: 560px; }
+.section-radar-link {
+  color: var(--gold);
+  font-weight: 600;
+  text-decoration: none;
+  text-underline-offset: 3px;
+  border-bottom: 1px solid transparent;
+  transition: var(--transition);
+}
+.section-radar-link:hover {
+  border-bottom-color: var(--gold);
+}
 
 .divider {
   height: 1px;
