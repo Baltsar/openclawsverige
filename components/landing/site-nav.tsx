@@ -6,6 +6,7 @@ import { useState, useCallback, useEffect } from "react";
 const DISCORD_URL = "https://discord.gg/CSphbTk8En";
 
 const MENU_LINKS = [
+  { href: "/radar", label: "Agent Radar" },
   { href: "/blogg", label: "Blogg" },
   { href: "/manifest", label: "Manifestet" },
 ];

@@ -1,0 +1,2222 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Radar — opensverige.se</title>
+
+<!-- SEO -->
+<meta name="description" content="Oberoende j&auml;mf&ouml;relse av AI-agentramverk — mognad, risk och stabilitet. Live-data fr&aring;n GitHub, uppdateras varje natt. FOSS av opensverige.se.">
+<meta name="keywords" content="AI agent frameworks, LangGraph, CrewAI, AutoGen, OpenAI Agents, j&auml;mf&ouml;relse, Sverige, FOSS, open source">
+<meta name="author" content="opensverige.se">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://opensverige.se/radar">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Agent Radar — opensverige.se">
+<meta property="og:description" content="Oberoende j&auml;mf&ouml;relse av AI-agentramverk. Mognad, risk, stabilitet — live fr&aring;n GitHub.">
+<meta property="og:url" content="https://opensverige.se/radar">
+<meta property="og:image" content="https://opensverige.se/radar/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="sv_SE">
+<meta property="og:site_name" content="opensverige.se">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Agent Radar — opensverige.se">
+<meta name="twitter:description" content="Oberoende j&auml;mf&ouml;relse av AI-agentramverk. Mognad, risk, stabilitet — live fr&aring;n GitHub.">
+<meta name="twitter:image" content="https://opensverige.se/radar/og-image.png">
+
+<!-- Theme -->
+<meta name="theme-color" content="#0a0a0a">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-deep: #0a0a0a;
+    --bg-surface: #141414;
+    --bg-card: #1a1a1a;
+    --bg-card-hover: #1f1f1f;
+    --border: #2a2a2a;
+    --border-hover: #3a3a3a;
+    --crayfish-red: #c4391a;
+    --crayfish-light: #e8512d;
+    --gold: #c9a55a;
+    --gold-light: #dfc07a;
+    --nordic-blue: #2E4A62;
+    --nordic-blue-light: #3d6080;
+    --warm-cream: #f0e6d3;
+    --text-primary: #e8e0d4;
+    --text-secondary: #b0a89e;
+    --text-muted: #7a756f;
+    --success: #4ade80;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* ── Custom Scrollbar (globalt) ── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+  html { scrollbar-width: thin; scrollbar-color: var(--border-hover) transparent; }
+
+  body {
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    padding: 48px 24px;
+  }
+
+  .container {
+    max-width: 1060px;
+    margin: 0 auto;
+  }
+
+  /* ── Header ── */
+  .page-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.25;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+
+  .meta-line {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+  }
+
+  .meta-line .live-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--success);
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ── Hero Stats (compact inline) ── */
+  .hero-stats {
+    display: flex;
+    gap: 6px 20px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+
+  .stat-card {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 5px;
+  }
+
+  .stat-value {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 0;
+  }
+
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    text-transform: lowercase;
+    color: var(--text-muted);
+  }
+  .stat-card::after { content: '·'; color: var(--border-hover); margin-left: 8px; }
+  .stat-card:last-child::after { content: ''; margin-left: 0; }
+
+  /* ── Filter Bar ── */
+  .filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .search-wrap {
+    flex: 1;
+    min-width: 180px;
+  }
+
+  .search-input {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 150ms;
+  }
+
+  .search-input::placeholder { color: var(--text-muted); }
+  .search-input:focus { border-color: var(--gold); }
+
+  .filter-chips {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .filter-chip {
+    background: var(--bg-card);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 5px 14px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 150ms;
+    white-space: nowrap;
+  }
+
+  .filter-chip:hover { border-color: var(--border-hover); color: var(--text-secondary); background: var(--bg-card-hover); }
+  .filter-chip.active {
+    border-color: var(--gold);
+    color: #0a0a0a;
+    background: var(--gold);
+    font-weight: 600;
+  }
+  .filter-chip.active::before {
+    content: '\2713 ';
+    font-weight: 700;
+  }
+  .filter-chip.se-chip { border-color: var(--nordic-blue); color: var(--nordic-blue-light); }
+  .filter-chip.se-chip:hover { border-color: var(--nordic-blue-light); color: var(--text-secondary); background: rgba(46,74,98,0.1); }
+  .filter-chip.se-chip.active {
+    border-color: #ffd900;
+    color: #1a1a0a;
+    background: #ffd900;
+    font-weight: 600;
+  }
+  .filter-chip.family-chip { border-color: var(--crayfish-red); color: var(--crayfish-light); }
+  .filter-chip.family-chip:hover { border-color: var(--crayfish-light); color: var(--text-secondary); background: rgba(196,57,26,0.08); }
+  .filter-chip.family-chip.active {
+    border-color: var(--crayfish-light);
+    color: #fff;
+    background: var(--crayfish-red);
+    font-weight: 600;
+  }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 80px 24px;
+    color: var(--text-muted);
+  }
+  .empty-state .empty-icon {
+    font-size: 72px;
+    line-height: 1;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .empty-state h3 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .empty-state p {
+    font-size: 13px;
+    line-height: 1.7;
+    max-width: 420px;
+    margin: 0 auto 20px;
+  }
+  .empty-state .empty-cta {
+    display: inline-block;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--gold);
+    text-decoration: none;
+    transition: all 150ms;
+  }
+  .empty-state .empty-cta:hover {
+    border-color: var(--gold);
+    background: rgba(201,165,90,0.08);
+  }
+
+  /* ── Site Intro (compact bar) ── */
+  .site-intro {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .site-intro-name {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+  .site-intro-name span { color: var(--gold); }
+  .site-intro-sep { color: var(--border-hover); }
+  .site-intro-text { color: var(--text-muted); }
+  .site-intro-links {
+    display: flex;
+    gap: 12px;
+    margin-left: auto;
+  }
+  .site-intro-link {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 150ms;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .site-intro-link:hover { color: var(--gold); }
+  .site-intro-link svg { fill: currentColor; flex-shrink: 0; }
+
+  @media (max-width: 600px) {
+    .site-intro-links { margin-left: 0; width: 100%; }
+  }
+
+  /* WIP Banner */
+  .wip-banner {
+    background: linear-gradient(90deg, rgba(196,57,26,0.15), rgba(201,165,90,0.1));
+    border: 1px solid var(--crayfish-red);
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--crayfish-light);
+  }
+  .wip-banner .wip-tag {
+    background: var(--crayfish-red);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+  .wip-banner .wip-text {
+    color: var(--text-secondary);
+  }
+
+  /* Coming Soon teasers */
+  .coming-soon-section {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .coming-soon-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+  .teaser-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .teaser-card {
+    background: var(--bg-card);
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .teaser-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--nordic-blue), var(--gold));
+    opacity: 0.5;
+  }
+  .teaser-card .teaser-badge {
+    display: inline-block;
+    background: rgba(46,74,98,0.3);
+    border: 1px solid var(--nordic-blue);
+    color: var(--nordic-blue-light);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+  }
+  .teaser-card h3 {
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .teaser-card p {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .teaser-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .teaser-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 2px 8px;
+  }
+
+  .view-toggle {
+    display: flex;
+    gap: 4px;
+    margin-left: auto;
+  }
+
+  .view-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 150ms;
+    line-height: 1;
+  }
+
+  .view-btn:hover { color: var(--text-secondary); border-color: var(--border-hover); }
+  .view-btn.active { color: var(--gold); border-color: var(--gold); }
+
+  .compare-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .compare-toggle {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 150ms;
+  }
+
+  .compare-toggle:hover { border-color: var(--border-hover); color: var(--text-secondary); }
+  .compare-toggle.active { border-color: var(--crayfish-light); color: var(--crayfish-light); background: rgba(232,81,45,0.08); }
+
+  .compare-go {
+    background: var(--crayfish-red);
+    border: none;
+    border-radius: 6px;
+    padding: 6px 16px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    color: #fff;
+    cursor: pointer;
+    transition: opacity 150ms;
+    display: none;
+  }
+
+  .compare-go:hover { opacity: 0.85; }
+  .compare-go.visible { display: inline-block; }
+
+  .compare-count {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    display: none;
+  }
+
+  .compare-count.visible { display: inline; }
+
+  /* ── Legend ── */
+  .legend {
+    margin-bottom: 20px;
+  }
+
+  .legend summary {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 6px 0;
+    list-style: none;
+  }
+
+  .legend summary::-webkit-details-marker { display: none; }
+  .legend summary::before { content: '+ '; }
+  .legend[open] summary::before { content: '- '; }
+
+  .legend-content {
+    display: flex;
+    gap: 40px;
+    padding: 16px 0 8px;
+    flex-wrap: wrap;
+  }
+
+  .legend-group h4 {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .legend-item .dots { display: flex; gap: 3px; }
+
+  /* ── Table ── */
+  .comparison-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 13px;
+  }
+
+  .comparison-table thead th {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: left;
+    padding: 0 16px 12px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: color 150ms;
+  }
+
+  .comparison-table thead th:hover { color: var(--gold); }
+  .comparison-table thead th.right { text-align: right; }
+
+  .sort-indicator {
+    font-size: 9px;
+    margin-left: 4px;
+    opacity: 0;
+    transition: opacity 150ms;
+  }
+
+  th.sorted .sort-indicator { opacity: 1; color: var(--gold); }
+
+  .comparison-table tbody tr {
+    transition: background 150ms ease, opacity 200ms ease;
+  }
+
+  .comparison-table tbody tr:hover {
+    background: var(--bg-surface);
+  }
+
+  .comparison-table tbody tr.selected {
+    background: rgba(232,81,45,0.05);
+  }
+
+  .comparison-table td {
+    padding: 18px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  /* Name column */
+  .fw-name {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    text-decoration: none;
+    cursor: pointer;
+    display: inline;
+  }
+
+  .fw-name:hover { color: var(--gold); }
+
+  .fw-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .fw-categories {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+
+  .category-chip {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.3px;
+    padding: 2px 8px;
+    border-radius: 8px;
+    border: 1px solid;
+    opacity: 0.8;
+    cursor: help;
+    position: relative;
+  }
+  .category-chip:hover { opacity: 1; }
+  .category-chip:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 0;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-hover);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-family: var(--font-body);
+    font-size: 11px;
+    line-height: 1.4;
+    letter-spacing: 0;
+    white-space: normal;
+    width: max-content;
+    max-width: 260px;
+    z-index: 50;
+    pointer-events: none;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  }
+  .category-chip:hover::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 2px);
+    left: 12px;
+    border: 4px solid transparent;
+    border-top-color: var(--border-hover);
+    z-index: 51;
+    pointer-events: none;
+  }
+
+  /* Maturity badge */
+  .maturity-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .dots {
+    display: flex;
+    gap: 3px;
+  }
+
+  .dots .d {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+
+  .dots .d.on { background: currentColor; }
+
+  .maturity-text {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.3px;
+  }
+
+  /* Risk chip */
+  .risk-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+
+  .risk-chip .rd {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* GitHub stats */
+  .gh-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-align: right;
+    color: var(--text-secondary);
+  }
+
+  .gh-stats .star-count {
+    color: var(--gold);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .gh-stats .last-push {
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  /* Color mapping */
+  .c-high    { color: var(--success); }
+  .c-medium  { color: var(--gold); }
+  .c-low-med { color: var(--nordic-blue-light); }
+  .c-low     { color: var(--text-muted); }
+
+  .rd-high       { background: var(--crayfish-light); }
+  .rd-medium     { background: var(--gold); }
+  .rd-low-medium { background: var(--nordic-blue-light); }
+  .rd-low        { background: var(--success); }
+
+  /* Best-for */
+  .use-case {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .env-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.3px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* Compare checkbox */
+  .compare-cb {
+    width: 14px;
+    height: 14px;
+    accent-color: var(--crayfish-light);
+    cursor: pointer;
+    margin-right: 8px;
+    vertical-align: middle;
+    display: none;
+  }
+
+  .compare-mode .compare-cb { display: inline-block; }
+
+  /* ── Detail Row ── */
+  .detail-row td {
+    padding: 0 !important;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .detail-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 300ms ease, padding 300ms ease;
+    padding: 0 16px;
+  }
+
+  .detail-content.open {
+    max-height: 600px;
+    padding: 20px 16px;
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    gap: 24px;
+    align-items: start;
+  }
+
+  .detail-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+  }
+
+  .detail-stat {
+    font-family: var(--font-mono);
+    font-size: 11px;
+  }
+
+  .detail-stat-label {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+  }
+
+  .detail-stat-value {
+    color: var(--text-secondary);
+  }
+
+  .detail-stability {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .detail-link {
+    display: inline-block;
+    margin-top: 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  .detail-link:hover { text-decoration: underline; }
+
+  /* ── Card View ── */
+  .cards-grid {
+    display: none;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+  }
+
+  .cards-grid.active { display: grid; }
+
+  .framework-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    transition: border-color 150ms, background 150ms;
+    cursor: pointer;
+  }
+
+  .framework-card:hover {
+    border-color: var(--border-hover);
+    background: var(--bg-card-hover);
+  }
+
+  .framework-card.selected {
+    border-color: var(--crayfish-light);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+
+  .card-name {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .card-stars {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--gold);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .card-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-maturity {
+    margin-bottom: 10px;
+  }
+
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+
+  .card-meta-item {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  /* ── Compare View ── */
+  .compare-view {
+    display: none;
+  }
+
+  .compare-view.active { display: block; }
+
+  .compare-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .compare-title {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  .compare-close {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 12px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 150ms;
+  }
+
+  .compare-close:hover { color: var(--text-secondary); border-color: var(--border-hover); }
+
+  .compare-columns {
+    display: grid;
+    gap: 16px;
+  }
+
+  .compare-col {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+  }
+
+  .compare-col-name {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+  }
+
+  .compare-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+
+  .compare-row:last-child { border-bottom: none; }
+
+  .compare-row-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .compare-row-value {
+    color: var(--text-secondary);
+    text-align: right;
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+
+  .compare-charts {
+    margin-top: 24px;
+  }
+
+  .compare-chart-title {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .compare-bars {
+    display: flex;
+    justify-content: center;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .footer-note {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .footer-brand {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .footer-brand a {
+    color: var(--text-secondary);
+    text-decoration: none;
+  }
+
+  .footer-brand a:hover { color: var(--gold); }
+
+  /* Risk filter color coding */
+  .filter-chip[data-risk="low"] { border-color: var(--success); color: var(--success); }
+  .filter-chip[data-risk="low"].active {
+    background: var(--success); border-color: var(--success); color: #0a1a0a; font-weight: 600;
+  }
+  .filter-chip[data-risk="low-medium"] { border-color: var(--nordic-blue-light); color: var(--nordic-blue-light); }
+  .filter-chip[data-risk="low-medium"].active {
+    background: var(--nordic-blue-light); border-color: var(--nordic-blue-light); color: #fff; font-weight: 600;
+  }
+  .filter-chip[data-risk="medium"] { border-color: var(--gold); color: var(--gold); }
+  .filter-chip[data-risk="medium"].active {
+    background: var(--gold); border-color: var(--gold); color: #0a0a0a; font-weight: 600;
+  }
+  .filter-chip[data-risk="high"] { border-color: var(--crayfish-light); color: var(--crayfish-light); }
+  .filter-chip[data-risk="high"].active {
+    background: var(--crayfish-light); border-color: var(--crayfish-light); color: #fff; font-weight: 600;
+  }
+
+  /* ── Loading Skeleton ── */
+  .skeleton-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 0;
+  }
+  .skeleton-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    padding: 16px;
+  }
+  .skeleton-block {
+    background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+    border-radius: 4px;
+  }
+  .skeleton-name { width: 140px; height: 16px; }
+  .skeleton-dots { width: 60px; height: 12px; }
+  .skeleton-risk { width: 100px; height: 12px; }
+  .skeleton-desc { width: 180px; height: 12px; }
+  .skeleton-stars { width: 50px; height: 16px; margin-left: auto; }
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* ── Loading / Error ── */
+  .status {
+    text-align: center;
+    padding: 80px 0;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+
+  /* ── Modal Overlay ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    max-width: 640px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 32px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-hover) transparent;
+  }
+  .modal-card::-webkit-scrollbar { width: 6px; }
+  .modal-card::-webkit-scrollbar-track { background: transparent; }
+  .modal-card::-webkit-scrollbar-thumb {
+    background: var(--border-hover);
+    border-radius: 3px;
+  }
+  .modal-card::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+  }
+
+  .modal-close {
+    float: right;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px;
+    line-height: 1;
+  }
+
+  .modal-close:hover { color: var(--text-primary); }
+
+  .modal-name {
+    font-family: var(--font-mono);
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .modal-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .modal-radar {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .modal-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .modal-stat {
+    font-family: var(--font-mono);
+  }
+
+  .modal-stat-label {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+  }
+
+  .modal-stat-value {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .modal-stability {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    line-height: 1.5;
+  }
+
+  .modal-link {
+    display: inline-block;
+    margin-top: 16px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  .modal-link:hover { text-decoration: underline; }
+
+  /* ── Mobile sort dropdown ── */
+  .mobile-sort {
+    display: none;
+    margin-bottom: 12px;
+  }
+
+  .mobile-sort select {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-primary);
+    outline: none;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .mobile-sort select:focus { border-color: var(--gold); }
+
+  .mobile-sort-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    body { padding: 24px 16px; }
+    h1 { font-size: 22px; }
+    .container { max-width: 100%; }
+    .hero-stats { gap: 4px 14px; }
+    .filter-bar { flex-direction: column; align-items: stretch; }
+    .search-wrap { min-width: 0; }
+    .view-toggle { display: none; }
+    .mobile-sort { display: block; }
+    .table-wrap { display: none !important; }
+    .cards-grid { display: grid !important; grid-template-columns: 1fr; }
+    .compare-columns { grid-template-columns: 1fr; }
+    .detail-grid { grid-template-columns: 1fr; }
+    .modal-card { padding: 20px; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-stats { gap: 4px 12px; }
+    .stat-value { font-size: 12px; }
+    .filter-chips { flex-wrap: wrap; }
+    .filter-chip { font-size: 9px; padding: 4px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- opensverige.se intro (compact) -->
+  <div class="site-intro">
+    <span class="site-intro-name">open<span>sverige</span>.se</span>
+    <span class="site-intro-sep">&mdash;</span>
+    <span class="site-intro-text">FOSS-driven AI-kunskap f&ouml;r svenska builders.</span>
+    <span class="site-intro-links">
+      <a href="https://discord.gg/opensverige" class="site-intro-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="13" height="13"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.36-.698.772-1.362 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.12-.094.246-.194.372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+        Discord
+      </a>
+      <a href="https://github.com/opensverige" class="site-intro-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="13" height="13"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        GitHub
+      </a>
+    </span>
+  </div>
+
+  <div class="wip-banner">
+    <span class="wip-tag">WORK IN PROGRESS</span>
+    <span class="wip-text">Den här sidan byggs aktivt. Data uppdateras automatiskt varje natt men funktioner och design kan ändras.</span>
+  </div>
+  <div class="page-label">opensverige / radar</div>
+  <h1>Agent Radar</h1>
+  <p class="subtitle">Produktionsmognad, risk &amp; stabilitet f&ouml;r AI-agentramverk &mdash; live fr&aring;n GitHub.</p>
+  <p class="meta-line" id="meta">
+    <span class="live-dot"></span>
+    Laddar data...
+  </p>
+
+  <!-- Hero Stats -->
+  <div class="hero-stats" id="hero-stats">
+    <div class="stat-card">
+      <span class="stat-value" id="stat-count">--</span>
+      <span class="stat-label">Frameworks</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-value" id="stat-maturity">--</span>
+      <span class="stat-label">Snitt mognad</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-value" id="stat-stars">--</span>
+      <span class="stat-label">Totala stjärnor</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-value" id="stat-active">--</span>
+      <span class="stat-label">Aktiva (30d)</span>
+    </div>
+  </div>
+
+  <!-- Filter Bar -->
+  <div class="filter-bar">
+    <div class="search-wrap">
+      <input type="text" id="search-input" class="search-input" placeholder="Sök framework..." autocomplete="off">
+    </div>
+    <div class="filter-chips" id="risk-filters">
+      <button class="filter-chip active" data-risk="">Alla</button>
+      <button class="filter-chip" data-risk="low">Låg</button>
+      <button class="filter-chip" data-risk="low-medium">Låg-medium</button>
+      <button class="filter-chip" data-risk="medium">Medium</button>
+      <button class="filter-chip" data-risk="high">Hög</button>
+    </div>
+    <button class="filter-chip family-chip" id="claw-filter" title="Visa OpenClaw-familjen">&#129438; OpenClaw familj</button>
+    <button class="filter-chip se-chip" id="se-filter" title="Visa bara svenska frameworks">&#127480;&#127466; Svenska</button>
+    <div class="view-toggle" id="view-toggle">
+      <button class="view-btn active" data-view="table" title="Tabellvy">&#9776;</button>
+      <button class="view-btn" data-view="cards" title="Kortvy">&#9782;</button>
+    </div>
+  </div>
+
+  <!-- Mobile Sort -->
+  <div class="mobile-sort" id="mobile-sort">
+    <div class="mobile-sort-label">Sortera efter</div>
+    <select id="mobile-sort-select">
+      <option value="maturity-desc">Mognad (h&ouml;gst f&ouml;rst)</option>
+      <option value="maturity-asc">Mognad (l&auml;gst f&ouml;rst)</option>
+      <option value="stars-desc">Stj&auml;rnor (flest f&ouml;rst)</option>
+      <option value="stars-asc">Stj&auml;rnor (f&auml;rst f&ouml;rst)</option>
+      <option value="name-asc">Namn (A&ndash;&#214;)</option>
+      <option value="name-desc">Namn (&#214;&ndash;A)</option>
+      <option value="risk-asc">Risk (l&auml;gst f&ouml;rst)</option>
+      <option value="risk-desc">Risk (h&ouml;gst f&ouml;rst)</option>
+    </select>
+  </div>
+
+  <!-- Compare Controls -->
+  <div class="compare-bar">
+    <button class="compare-toggle" id="compare-toggle">Jämför</button>
+    <span class="compare-hint" id="compare-hint" style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);display:none">Kryssa i 2–3 ramverk att jämföra</span>
+    <span class="compare-count" id="compare-count">0 valda</span>
+    <button class="compare-go" id="compare-go">Visa jämförelse</button>
+  </div>
+  <!-- Toast -->
+  <div id="toast" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--bg-card);border:1px solid var(--gold);border-radius:8px;padding:10px 20px;font-family:var(--font-mono);font-size:11px;color:var(--gold);z-index:200;opacity:0;transition:opacity 300ms;pointer-events:none;">Max 3 ramverk kan jämföras</div>
+
+  <!-- Legend -->
+  <details class="legend">
+    <summary>Förklaring av skalor</summary>
+    <div class="legend-content">
+      <div class="legend-group">
+        <h4>Mognad (1–5)</h4>
+        <div class="legend-item c-low"><span class="dots"><span class="d on"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span></span> 1 — Experimentell</div>
+        <div class="legend-item c-low-med"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d"></span><span class="d"></span><span class="d"></span></span> 2 — Tidig</div>
+        <div class="legend-item c-medium"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d"></span><span class="d"></span></span> 3 — Växande</div>
+        <div class="legend-item c-medium"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d"></span></span> 4 — Stabil</div>
+        <div class="legend-item c-high"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span></span> 5 — Mogen</div>
+      </div>
+      <div class="legend-group">
+        <h4>Risk</h4>
+        <div class="legend-item"><span class="rd rd-low" style="width:7px;height:7px;border-radius:50%;display:inline-block"></span> Låg — minimal attackyta</div>
+        <div class="legend-item"><span class="rd rd-low-medium" style="width:7px;height:7px;border-radius:50%;display:inline-block"></span> Låg-medium</div>
+        <div class="legend-item"><span class="rd rd-medium" style="width:7px;height:7px;border-radius:50%;display:inline-block"></span> Medium</div>
+        <div class="legend-item"><span class="rd rd-high" style="width:7px;height:7px;border-radius:50%;display:inline-block"></span> Hög — stor attackyta</div>
+      </div>
+    </div>
+  </details>
+
+  <!-- Main Content -->
+  <div id="table-root">
+    <div class="skeleton-wrap">
+      <div class="skeleton-row"><span class="skeleton-block skeleton-name"></span><span class="skeleton-block skeleton-dots"></span><span class="skeleton-block skeleton-risk"></span><span class="skeleton-block skeleton-desc"></span><span class="skeleton-block skeleton-stars"></span></div>
+      <div class="skeleton-row"><span class="skeleton-block skeleton-name"></span><span class="skeleton-block skeleton-dots"></span><span class="skeleton-block skeleton-risk"></span><span class="skeleton-block skeleton-desc"></span><span class="skeleton-block skeleton-stars"></span></div>
+      <div class="skeleton-row"><span class="skeleton-block skeleton-name"></span><span class="skeleton-block skeleton-dots"></span><span class="skeleton-block skeleton-risk"></span><span class="skeleton-block skeleton-desc"></span><span class="skeleton-block skeleton-stars"></span></div>
+      <div class="skeleton-row"><span class="skeleton-block skeleton-name"></span><span class="skeleton-block skeleton-dots"></span><span class="skeleton-block skeleton-risk"></span><span class="skeleton-block skeleton-desc"></span><span class="skeleton-block skeleton-stars"></span></div>
+      <div class="skeleton-row"><span class="skeleton-block skeleton-name"></span><span class="skeleton-block skeleton-dots"></span><span class="skeleton-block skeleton-risk"></span><span class="skeleton-block skeleton-desc"></span><span class="skeleton-block skeleton-stars"></span></div>
+    </div>
+  </div>
+
+  <!-- Compare View -->
+  <div class="compare-view" id="compare-view"></div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-label="Framework-detaljer">
+    <div class="modal-card" id="modal-card" tabindex="-1"></div>
+  </div>
+
+  <!-- Coming Soon Teasers -->
+  <div class="coming-soon-section">
+    <div class="coming-soon-label">Coming soon</div>
+    <div class="teaser-grid">
+
+      <div class="teaser-card">
+        <span class="teaser-badge">Planerad</span>
+        <h3>Agent Skills</h3>
+        <p>Katalog &ouml;ver tillg&auml;ngliga skills och verktyg f&ouml;r varje ramverk. Automatisk inventering fr&aring;n GitHub-repos, ClawHub och community-bidrag.</p>
+        <div class="teaser-tags">
+          <span class="teaser-tag">tool-use</span>
+          <span class="teaser-tag">plugins</span>
+          <span class="teaser-tag">integrations</span>
+          <span class="teaser-tag">ClawHub</span>
+        </div>
+      </div>
+
+      <div class="teaser-card">
+        <span class="teaser-badge">Planerad</span>
+        <h3>MCP-kompatibilitet</h3>
+        <p>Vilka ramverk st&ouml;djer Model Context Protocol? Server- och klient-st&ouml;d, transport-typer och verifierade MCP-integrationer.</p>
+        <div class="teaser-tags">
+          <span class="teaser-tag">MCP</span>
+          <span class="teaser-tag">server</span>
+          <span class="teaser-tag">client</span>
+          <span class="teaser-tag">stdio / SSE</span>
+        </div>
+      </div>
+
+      <div class="teaser-card">
+        <span class="teaser-badge">Planerad</span>
+        <h3>Svenska AI-agenter</h3>
+        <p>Sp&aring;rning av svenskutvecklade agent frameworks och AI-projekt. Vi v&auml;ntar p&aring; Sveriges f&ouml;rsta &mdash; &auml;r det du som bygger det?</p>
+        <div class="teaser-tags">
+          <span class="teaser-tag">&#127480;&#127466; made-in-sweden</span>
+          <span class="teaser-tag">open source</span>
+          <span class="teaser-tag">community</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-note" id="footer-note"></div>
+    <div class="footer-brand"><a href="https://opensverige.se">opensverige.se</a></div>
+  </div>
+</div>
+
+<script>
+(async () => {
+  // ── State ──
+  const state = {
+    frameworks: [],
+    sortField: 'maturity',
+    sortDir: 'desc',
+    searchQuery: '',
+    riskFilter: '',
+    countryFilter: '',
+    familyFilter: '',
+    viewMode: 'table',
+    compareMode: false,
+    compareSet: new Set(),
+    showCompareView: false,
+    expandedId: null,
+    generated_at: null
+  };
+
+  // ── DOM refs ──
+  const root = document.getElementById('table-root');
+  const meta = document.getElementById('meta');
+  const footerNote = document.getElementById('footer-note');
+  const searchInput = document.getElementById('search-input');
+  const riskFilters = document.getElementById('risk-filters');
+  const viewToggle = document.getElementById('view-toggle');
+  const compareToggle = document.getElementById('compare-toggle');
+  const compareCount = document.getElementById('compare-count');
+  const compareGo = document.getElementById('compare-go');
+  const compareView = document.getElementById('compare-view');
+  const modalOverlay = document.getElementById('modal-overlay');
+  const modalCard = document.getElementById('modal-card');
+
+  // ── Helpers ──
+  const maturityColor = (level) => {
+    if (level >= 5) return 'c-high';
+    if (level >= 4) return 'c-medium';
+    if (level >= 2) return 'c-low-med';
+    return 'c-low';
+  };
+
+  const riskDot = (risk) => {
+    const map = { high: 'rd-high', medium: 'rd-medium', 'low-medium': 'rd-low-medium', low: 'rd-low' };
+    return map[risk] || 'rd-low';
+  };
+
+  const riskNumeric = (risk) => {
+    const map = { low: 0, 'low-medium': 1, medium: 2, high: 3 };
+    return map[risk] ?? 0;
+  };
+
+  const fmtStars = (n) => {
+    if (n == null) return '—';
+    if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+    return n.toString();
+  };
+
+  const fmtNumber = (n) => {
+    if (n == null) return '—';
+    if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+    return n.toString();
+  };
+
+  const timeAgo = (iso) => {
+    if (!iso) return '';
+    const diff = Date.now() - new Date(iso).getTime();
+    const days = Math.floor(diff / 86400000);
+    if (days === 0) return 'idag';
+    if (days === 1) return 'igår';
+    if (days < 30) return `${days}d sedan`;
+    const months = Math.floor(days / 30);
+    if (months < 12) return `${months}mån sedan`;
+    const years = Math.floor(months / 12);
+    return `${years}år sedan`;
+  };
+
+  const daysSince = (iso) => {
+    if (!iso) return Infinity;
+    return Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+  };
+
+  const dotsHtml = (level, max = 5) => {
+    let html = '';
+    for (let i = 1; i <= max; i++) {
+      html += `<span class="d${i <= level ? ' on' : ''}"></span>`;
+    }
+    return html;
+  };
+
+  const escHtml = (s) => {
+    if (!s) return '';
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  };
+
+  // ── Category extraction ──
+  const CATEGORIES = {
+    'RAG':          { color: 'var(--nordic-blue-light)', keywords: ['rag', 'sök', 'retrieval', 'search'],    tip: 'Retrieval-Augmented Generation — hämtar data och ger AI:n kontext att svara med' },
+    'Multi-agent':  { color: 'var(--crayfish-light)',    keywords: ['multi-agent', 'team', 'konversation'],   tip: 'Flera AI-agenter samarbetar, delegerar och diskuterar för att lösa uppgifter' },
+    'Enterprise':   { color: 'var(--gold)',              keywords: ['enterprise', '.net', 'azure'],           tip: 'Redo för storföretag — stöd för Azure, .NET, compliance och skalbarhet' },
+    'Lättvikt':     { color: 'var(--success)',           keywords: ['lättvikt', 'lightweight', 'liten'],      tip: 'Minimal kodbas, få beroenden — snabbt att komma igång med' },
+    'Orkestrering': { color: 'var(--gold-light)',        keywords: ['orkestr', 'workflow', 'flöd', 'graf', 'graph', 'pipeline'], tip: 'Styr flödet mellan steg och agenter — som en dirigent för AI-pipelines' },
+    'Typsäker':     { color: 'var(--nordic-blue)',       keywords: ['typsäk', 'pydantic', 'validering'],     tip: 'Validerar in- och utdata med typer — färre buggar, säkrare outputs' },
+    'Data':         { color: '#9b87c4',                  keywords: ['data', 'index', 'kunskaps'],             tip: 'Fokuserar på att indexera, söka och strukturera data för AI' },
+    'Autonomi':     { color: 'var(--crayfish-red)',      keywords: ['autonom', 'full auto'],                  tip: 'Agenten agerar självständigt — planerar, utför och korrigerar utan mänsklig input' },
+  };
+
+  function getCategories(fw) {
+    const text = `${fw.best_for} ${fw.environment} ${fw.stability}`.toLowerCase();
+    const cats = [];
+    for (const [label, cfg] of Object.entries(CATEGORIES)) {
+      if (cfg.keywords.some(k => text.includes(k))) cats.push(label);
+    }
+    return cats;
+  }
+
+  function categoryChips(fw) {
+    const cats = getCategories(fw);
+    if (!cats.length) return '';
+    return '<div class="fw-categories">' +
+      cats.map(c => `<span class="category-chip" style="color:${CATEGORIES[c].color};border-color:${CATEGORIES[c].color}" data-tip="${escHtml(CATEGORIES[c].tip)}">${c}</span>`).join('') +
+      '</div>';
+  }
+
+  // ── Radar chart SVG ──
+  function radarSVG(fw, size = 200) {
+    const gh = fw.github_stats;
+    const cx = size / 2, cy = size / 2, r = size / 2 - 32;
+
+    // Normalize values to 1-5
+    const normStars = (s) => { if (!s) return 1; if (s >= 30000) return 5; if (s >= 15000) return 4; if (s >= 5000) return 3; if (s >= 1000) return 2; return 1; };
+    const normActivity = (iso) => { const d = daysSince(iso); if (d <= 7) return 5; if (d <= 30) return 4; if (d <= 90) return 3; if (d <= 180) return 2; return 1; };
+    const normAge = (iso) => { const d = daysSince(iso); const years = d / 365; if (years >= 3) return 5; if (years >= 2) return 4; if (years >= 1) return 3; if (years >= 0.5) return 2; return 1; };
+    const invertRisk = (risk) => ({ low: 5, 'low-medium': 4, medium: 3, high: 1 }[risk] ?? 3);
+
+    const axes = [
+      { label: 'Mognad', value: fw.maturity || 1 },
+      { label: 'Community', value: normStars(gh?.stars) },
+      { label: 'Aktivitet', value: normActivity(gh?.last_push) },
+      { label: 'Ålder', value: normAge(gh?.created) },
+      { label: 'Säkerhet', value: invertRisk(fw.risk) }
+    ];
+
+    const n = axes.length;
+    const step = (2 * Math.PI) / n;
+
+    // Grid rings
+    let rings = '';
+    for (let ring = 1; ring <= 5; ring++) {
+      const rr = (ring / 5) * r;
+      const pts = Array.from({ length: n }, (_, i) => {
+        const a = i * step - Math.PI / 2;
+        return `${(cx + rr * Math.cos(a)).toFixed(1)},${(cy + rr * Math.sin(a)).toFixed(1)}`;
+      }).join(' ');
+      rings += `<polygon points="${pts}" fill="none" stroke="${ring === 5 ? 'var(--border-hover)' : 'var(--border)'}" stroke-width="0.5"/>`;
+    }
+
+    // Axis lines and labels
+    let axisHtml = '';
+    axes.forEach((ax, i) => {
+      const a = i * step - Math.PI / 2;
+      const x2 = cx + r * Math.cos(a);
+      const y2 = cy + r * Math.sin(a);
+      const lx = cx + (r + 20) * Math.cos(a);
+      const ly = cy + (r + 20) * Math.sin(a);
+      axisHtml += `<line x1="${cx}" y1="${cy}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="var(--border)" stroke-width="0.5"/>`;
+      axisHtml += `<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="var(--text-muted)" font-size="8" font-family="var(--font-mono)">${ax.label}</text>`;
+    });
+
+    // Data polygon
+    const dataPoints = axes.map((ax, i) => {
+      const a = i * step - Math.PI / 2;
+      const v = (ax.value / 5) * r;
+      return `${(cx + v * Math.cos(a)).toFixed(1)},${(cy + v * Math.sin(a)).toFixed(1)}`;
+    }).join(' ');
+
+    return `<svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" style="display:block;margin:0 auto">
+      ${rings}${axisHtml}
+      <polygon points="${dataPoints}" fill="var(--gold)" fill-opacity="0.15" stroke="var(--gold)" stroke-width="1.5"/>
+    </svg>`;
+  }
+
+  // ── Comparison bar chart SVG ──
+  function comparisonBarsSVG(frameworks, metric, label, maxVal) {
+    const colors = ['var(--crayfish-light)', 'var(--gold)', 'var(--nordic-blue-light)'];
+    const barW = 48, gap = 12, h = 100, padTop = 12, padBot = 28;
+    const totalW = frameworks.length * (barW + gap) - gap;
+
+    let bars = '';
+    frameworks.forEach((fw, i) => {
+      let val = 0;
+      if (metric === 'stars') val = fw.github_stats?.stars || 0;
+      else if (metric === 'maturity') val = fw.maturity || 0;
+      else if (metric === 'forks') val = fw.github_stats?.forks || 0;
+      else if (metric === 'issues') val = fw.github_stats?.open_issues || 0;
+
+      const barH = maxVal > 0 ? (val / maxVal) * (h - padTop - padBot) : 0;
+      const x = i * (barW + gap);
+      const y = h - padBot - barH;
+
+      bars += `<rect x="${x}" y="${y}" width="${barW}" height="${barH}" fill="${colors[i]}" rx="3"/>`;
+      bars += `<text x="${x + barW / 2}" y="${y - 4}" text-anchor="middle" fill="var(--text-secondary)" font-size="9" font-family="var(--font-mono)">${fmtNumber(val)}</text>`;
+      bars += `<text x="${x + barW / 2}" y="${h - 8}" text-anchor="middle" fill="var(--text-muted)" font-size="8" font-family="var(--font-mono)">${fw.name.length > 8 ? fw.name.slice(0, 7) + '..' : fw.name}</text>`;
+    });
+
+    return `<div style="text-align:center;margin-bottom:16px">
+      <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px">${label}</div>
+      <svg viewBox="0 0 ${totalW} ${h}" width="${totalW}" height="${h}">${bars}</svg>
+    </div>`;
+  }
+
+  // ── Filter & Sort ──
+  function getFiltered() {
+    let list = state.frameworks;
+
+    // Search
+    if (state.searchQuery) {
+      const q = state.searchQuery.toLowerCase();
+      list = list.filter(fw => {
+        const text = `${fw.name} ${fw.best_for} ${fw.stability} ${fw.environment} ${fw.github_stats?.description || ''}`.toLowerCase();
+        return text.includes(q);
+      });
+    }
+
+    // Risk filter
+    if (state.riskFilter) {
+      list = list.filter(fw => fw.risk === state.riskFilter);
+    }
+
+    // Country filter
+    if (state.countryFilter) {
+      list = list.filter(fw => fw.country === state.countryFilter);
+    }
+
+    // Family filter (e.g. OpenClaw ecosystem)
+    if (state.familyFilter) {
+      list = list.filter(fw => fw.family === state.familyFilter);
+    }
+
+    // Sort
+    const dir = state.sortDir === 'asc' ? 1 : -1;
+    list = [...list].sort((a, b) => {
+      let va, vb;
+      switch (state.sortField) {
+        case 'name':
+          return dir * a.name.localeCompare(b.name);
+        case 'maturity':
+          return dir * ((a.maturity || 0) - (b.maturity || 0));
+        case 'risk':
+          return dir * (riskNumeric(a.risk) - riskNumeric(b.risk));
+        case 'stars':
+          va = a.github_stats?.stars || 0;
+          vb = b.github_stats?.stars || 0;
+          return dir * (va - vb);
+        default:
+          return 0;
+      }
+    });
+
+    return list;
+  }
+
+  // ── Render table ──
+  function renderTable(frameworks) {
+    const sortIcon = (field) => {
+      if (state.sortField !== field) return '<span class="sort-indicator"></span>';
+      return `<span class="sort-indicator">${state.sortDir === 'asc' ? '&#9650;' : '&#9660;'}</span>`;
+    };
+    const sorted = (field) => state.sortField === field ? ' sorted' : '';
+
+    let html = `<div class="table-wrap${state.viewMode !== 'table' ? ' hidden' : ''}">
+    <table class="comparison-table${state.compareMode ? ' compare-mode' : ''}">
+      <thead>
+        <tr>
+          <th data-sort="name" class="${sorted('name')}">Framework ${sortIcon('name')}</th>
+          <th data-sort="maturity" class="${sorted('maturity')}">Mognad ${sortIcon('maturity')}</th>
+          <th data-sort="risk" class="${sorted('risk')}">Risk ${sortIcon('risk')}</th>
+          <th class="hide-mobile">Bäst för</th>
+          <th data-sort="stars" class="right${sorted('stars')}">GitHub ${sortIcon('stars')}</th>
+        </tr>
+      </thead>
+      <tbody>`;
+
+    for (const fw of frameworks) {
+      const gh = fw.github_stats;
+      const colorClass = maturityColor(fw.maturity);
+      const isSelected = state.compareSet.has(fw.id);
+
+      html += `
+        <tr data-id="${fw.id}" class="${isSelected ? 'selected' : ''}">
+          <td>
+            <input type="checkbox" class="compare-cb" data-id="${fw.id}" ${isSelected ? 'checked' : ''}>
+            <span class="fw-name" data-id="${fw.id}">${escHtml(fw.name)}</span>
+            ${gh?.description ? `<div class="fw-desc" title="${escHtml(gh.description)}">${escHtml(gh.description)}</div>` : ''}
+            ${categoryChips(fw)}
+          </td>
+          <td>
+            <div class="maturity-cell ${colorClass}">
+              <div class="dots">${dotsHtml(fw.maturity)}</div>
+              <span class="maturity-text">${fw.maturity}/5</span>
+            </div>
+          </td>
+          <td>
+            <span class="risk-chip">
+              <span class="rd ${riskDot(fw.risk)}"></span>
+              ${escHtml(fw.risk_label)}
+            </span>
+          </td>
+          <td class="hide-mobile">
+            <div class="use-case">${escHtml(fw.best_for)}</div>
+            <div class="env-tag">${escHtml(fw.environment)}</div>
+          </td>
+          <td>
+            <div class="gh-stats">
+              ${gh ? `
+                <span class="star-count">&#9733; ${fmtStars(gh.stars)}</span>
+                <span>${fmtNumber(gh.forks)} forks</span>
+                <span class="last-push">push ${timeAgo(gh.last_push)}</span>
+              ` : '<span style="color:var(--text-muted)">—</span>'}
+            </div>
+          </td>
+        </tr>`;
+    }
+
+    html += `</tbody></table></div>`;
+    return html;
+  }
+
+  // ── Render cards ──
+  function renderCards(frameworks) {
+    let html = `<div class="cards-grid${state.viewMode === 'cards' ? ' active' : ''}">`;
+
+    for (const fw of frameworks) {
+      const gh = fw.github_stats;
+      const colorClass = maturityColor(fw.maturity);
+      const isSelected = state.compareSet.has(fw.id);
+
+      html += `
+      <div class="framework-card${isSelected ? ' selected' : ''}" data-id="${fw.id}">
+        <div class="card-header">
+          <div>
+            ${state.compareMode ? `<input type="checkbox" class="compare-cb" data-id="${fw.id}" ${isSelected ? 'checked' : ''} style="display:inline-block">` : ''}
+            <span class="card-name">${escHtml(fw.name)}</span>
+          </div>
+          <span class="card-stars">&#9733; ${fmtStars(gh?.stars)}</span>
+        </div>
+        <div class="card-desc">${escHtml(gh?.description || fw.best_for)}</div>
+        <div class="card-maturity">
+          <div class="maturity-cell ${colorClass}">
+            <div class="dots">${dotsHtml(fw.maturity)}</div>
+            <span class="maturity-text">${fw.maturity}/5</span>
+          </div>
+        </div>
+        <div>
+          <span class="risk-chip">
+            <span class="rd ${riskDot(fw.risk)}"></span>
+            ${escHtml(fw.risk_label)}
+          </span>
+        </div>
+        ${categoryChips(fw)}
+        <div class="card-meta">
+          <span class="card-meta-item">${escHtml(fw.environment)}</span>
+          <span class="card-meta-item">${gh?.last_push ? 'push ' + timeAgo(gh.last_push) : ''}</span>
+        </div>
+      </div>`;
+    }
+
+    html += '</div>';
+    return html;
+  }
+
+  // ── Render compare view ──
+  function renderCompareView() {
+    const selected = state.frameworks.filter(fw => state.compareSet.has(fw.id));
+    if (selected.length < 2) {
+      compareView.classList.remove('active');
+      state.showCompareView = false;
+      return;
+    }
+
+    // Bar charts data
+    const maxStars = Math.max(...selected.map(fw => fw.github_stats?.stars || 0));
+    const maxForks = Math.max(...selected.map(fw => fw.github_stats?.forks || 0));
+    const maxIssues = Math.max(...selected.map(fw => fw.github_stats?.open_issues || 0));
+
+    let html = `
+      <div class="compare-header">
+        <span class="compare-title">Jämförelse — ${selected.map(fw => fw.name).join(' vs ')}</span>
+        <button class="compare-close" id="compare-close-btn">Stäng</button>
+      </div>
+      <div class="compare-charts">
+        <div style="display:flex;flex-wrap:wrap;gap:24px;justify-content:center">
+          ${comparisonBarsSVG(selected, 'stars', 'Stjärnor', maxStars || 1)}
+          ${comparisonBarsSVG(selected, 'maturity', 'Mognad', 5)}
+          ${comparisonBarsSVG(selected, 'forks', 'Forks', maxForks || 1)}
+          ${comparisonBarsSVG(selected, 'issues', 'Öppna issues', maxIssues || 1)}
+        </div>
+      </div>
+      <div class="compare-columns" style="grid-template-columns:repeat(${selected.length}, 1fr)">`;
+
+    for (const fw of selected) {
+      const gh = fw.github_stats;
+      html += `
+        <div class="compare-col">
+          <div class="compare-col-name">${escHtml(fw.name)}</div>
+          ${radarSVG(fw, 180)}
+          <div class="compare-row"><span class="compare-row-label">Mognad</span><span class="compare-row-value">${fw.maturity}/5</span></div>
+          <div class="compare-row"><span class="compare-row-label">Risk</span><span class="compare-row-value">${escHtml(fw.risk_label)}</span></div>
+          <div class="compare-row"><span class="compare-row-label">Stjärnor</span><span class="compare-row-value">${fmtStars(gh?.stars)}</span></div>
+          <div class="compare-row"><span class="compare-row-label">Forks</span><span class="compare-row-value">${fmtNumber(gh?.forks)}</span></div>
+          <div class="compare-row"><span class="compare-row-label">Språk</span><span class="compare-row-value">${gh?.language || '—'}</span></div>
+          <div class="compare-row"><span class="compare-row-label">Licens</span><span class="compare-row-value">${gh?.license || '—'}</span></div>
+          <div class="compare-row"><span class="compare-row-label">Senaste push</span><span class="compare-row-value">${timeAgo(gh?.last_push) || '—'}</span></div>
+          <div class="compare-row"><span class="compare-row-label">Bäst för</span><span class="compare-row-value" style="font-size:10px;text-align:right;max-width:180px">${escHtml(fw.best_for)}</span></div>
+          <div class="compare-row"><span class="compare-row-label">Miljö</span><span class="compare-row-value" style="font-size:10px">${escHtml(fw.environment)}</span></div>
+        </div>`;
+    }
+
+    html += '</div>';
+    compareView.innerHTML = html;
+    compareView.classList.add('active');
+
+    document.getElementById('compare-close-btn')?.addEventListener('click', () => {
+      state.showCompareView = false;
+      compareView.classList.remove('active');
+    });
+  }
+
+  // ── Modal ──
+  let previousFocus = null;
+
+  function showModal(fw) {
+    previousFocus = document.activeElement;
+    const gh = fw.github_stats;
+    modalCard.innerHTML = `
+      <button class="modal-close" aria-label="Stäng">&times;</button>
+      <div class="modal-name">${escHtml(fw.name)}</div>
+      <div class="modal-desc">${escHtml(gh?.description || fw.best_for)}</div>
+      <div class="modal-radar">${radarSVG(fw, 220)}</div>
+      <div class="modal-stats">
+        <div class="modal-stat"><div class="modal-stat-label">Mognad</div><div class="modal-stat-value">${fw.maturity}/5 — ${fw.maturity_label}</div></div>
+        <div class="modal-stat"><div class="modal-stat-label">Risk</div><div class="modal-stat-value">${escHtml(fw.risk_label)}</div></div>
+        <div class="modal-stat"><div class="modal-stat-label">Stjärnor</div><div class="modal-stat-value">${fmtStars(gh?.stars)}</div></div>
+        <div class="modal-stat"><div class="modal-stat-label">Forks</div><div class="modal-stat-value">${fmtNumber(gh?.forks)}</div></div>
+        <div class="modal-stat"><div class="modal-stat-label">Watchers</div><div class="modal-stat-value">${fmtNumber(gh?.watchers)}</div></div>
+        <div class="modal-stat"><div class="modal-stat-label">Öppna issues</div><div class="modal-stat-value">${fmtNumber(gh?.open_issues)}</div></div>
+        <div class="modal-stat"><div class="modal-stat-label">Språk</div><div class="modal-stat-value">${gh?.language || '—'}</div></div>
+        <div class="modal-stat"><div class="modal-stat-label">Licens</div><div class="modal-stat-value">${gh?.license || '—'}</div></div>
+        <div class="modal-stat"><div class="modal-stat-label">Senaste push</div><div class="modal-stat-value">${timeAgo(gh?.last_push)}</div></div>
+        <div class="modal-stat"><div class="modal-stat-label">Skapad</div><div class="modal-stat-value">${gh?.created ? new Date(gh.created).toLocaleDateString('sv-SE') : '—'}</div></div>
+        <div class="modal-stat"><div class="modal-stat-label">Storlek</div><div class="modal-stat-value">${gh?.size_kb ? (gh.size_kb / 1024).toFixed(1) + ' MB' : '—'}</div></div>
+        ${gh?.latest_release ? `<div class="modal-stat"><div class="modal-stat-label">Senaste release</div><div class="modal-stat-value">${escHtml(gh.latest_release.tag)} (${timeAgo(gh.latest_release.date)})</div></div>` : ''}
+      </div>
+      <div style="margin-top:8px">${categoryChips(fw)}</div>
+      <div class="modal-stability"><strong>Stabilitet:</strong> ${escHtml(fw.stability)}</div>
+      <div class="modal-stability"><strong>Bäst för:</strong> ${escHtml(fw.best_for)}</div>
+      <div class="modal-stability"><strong>Miljö:</strong> ${escHtml(fw.environment)}</div>
+      <a class="modal-link" href="${fw.github_url}" target="_blank" rel="noopener">Öppna på GitHub &#8594;</a>
+    `;
+    modalOverlay.classList.add('open');
+    // Focus trap: fokusera stäng-knappen
+    const closeBtn = modalCard.querySelector('.modal-close');
+    closeBtn.addEventListener('click', closeModal);
+    requestAnimationFrame(() => closeBtn.focus());
+  }
+
+  function closeModal() {
+    modalOverlay.classList.remove('open');
+    if (previousFocus) previousFocus.focus();
+  }
+
+  modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) closeModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+    // Focus trap inside modal
+    if (e.key === 'Tab' && modalOverlay.classList.contains('open')) {
+      const focusable = modalCard.querySelectorAll('button, a[href], input, [tabindex]:not([tabindex="-1"])');
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  });
+
+  // ── Hero stats ──
+  function renderHero(frameworks) {
+    const count = frameworks.length;
+    const avgMaturity = count ? (frameworks.reduce((s, f) => s + (f.maturity || 0), 0) / count).toFixed(1) : '—';
+    const totalStars = frameworks.reduce((s, f) => s + (f.github_stats?.stars || 0), 0);
+    const activeCount = frameworks.filter(f => daysSince(f.github_stats?.last_push) <= 30).length;
+
+    document.getElementById('stat-count').textContent = count;
+    document.getElementById('stat-maturity').textContent = avgMaturity;
+    document.getElementById('stat-stars').textContent = fmtNumber(totalStars);
+    document.getElementById('stat-active').textContent = activeCount;
+  }
+
+  // ── Master render ──
+  function render() {
+    const filtered = getFiltered();
+
+    // Empty state check
+    if (filtered.length === 0 && state.countryFilter === 'se') {
+      root.innerHTML = `
+        <div class="empty-state">
+          <span class="empty-icon">\u{1F6A9}</span>
+          <h3>Inga svenska agent frameworks \u2014 \u00e4nnu.</h3>
+          <p>
+            Vi har letat h\u00f6gt och l\u00e5gt, fr\u00e5n Kiruna till Ystad \u2014
+            men inget svenskt AI-agentramverk har dykt upp.<br><br>
+            \u00c4r du den som bygger Sveriges f\u00f6rsta? \u{1f1f8}\u{1f1ea}<br>
+            L\u00e4gg till <code>country: se</code> i YAML-filen och g\u00f6r historia.
+          </p>
+          <a href="https://github.com/opensverige" class="empty-cta">Bidra p\u00e5 GitHub \u2192</a>
+        </div>
+      `;
+      return;
+    }
+
+    if (filtered.length === 0) {
+      root.innerHTML = `
+        <div class="empty-state">
+          <span class="empty-icon">\u{1F50D}</span>
+          <h3>Inga tr\u00e4ffar</h3>
+          <p>Inga frameworks matchar din s\u00f6kning eller filter. Prova att \u00e4ndra dina filter.</p>
+          <button class="empty-cta" id="reset-filters-btn">Rensa alla filter \u2192</button>
+        </div>
+      `;
+      document.getElementById('reset-filters-btn')?.addEventListener('click', () => {
+        state.searchQuery = '';
+        state.riskFilter = '';
+        state.countryFilter = '';
+        state.familyFilter = '';
+        searchInput.value = '';
+        riskFilters.querySelectorAll('.filter-chip').forEach((c, i) => c.classList.toggle('active', i === 0));
+        clawFilter.classList.remove('active');
+        seFilter.classList.remove('active');
+        render();
+      });
+      return;
+    }
+
+    // Table + Cards
+    root.innerHTML = renderTable(filtered) + renderCards(filtered);
+
+    // Show/hide based on view mode
+    const tableWrap = root.querySelector('.table-wrap');
+    const cardsGrid = root.querySelector('.cards-grid');
+    if (tableWrap) tableWrap.style.display = state.viewMode === 'table' ? '' : 'none';
+    if (cardsGrid) cardsGrid.classList.toggle('active', state.viewMode === 'cards');
+
+    // Event delegation for table sort
+    const thead = root.querySelector('thead');
+    if (thead) {
+      thead.addEventListener('click', (e) => {
+        const th = e.target.closest('[data-sort]');
+        if (!th) return;
+        const field = th.dataset.sort;
+        if (state.sortField === field) {
+          state.sortDir = state.sortDir === 'asc' ? 'desc' : 'asc';
+        } else {
+          state.sortField = field;
+          state.sortDir = field === 'name' ? 'asc' : 'desc';
+        }
+        render();
+      });
+    }
+
+    // Click handler — compare checkbox MUST be checked first
+    root.addEventListener('click', (e) => {
+      // 1. Compare checkbox (highest priority)
+      if (e.target.matches('.compare-cb') || e.target.matches('input[type="checkbox"]')) {
+        e.stopPropagation();
+        const id = e.target.dataset.id;
+        if (!id) return;
+        // Toggle in state based on the NEW checked value (after native toggle)
+        if (e.target.checked) {
+          if (state.compareSet.size < 3) {
+            state.compareSet.add(id);
+          } else {
+            e.target.checked = false;
+            showToast('Max 3 ramverk kan jämföras');
+          }
+        } else {
+          state.compareSet.delete(id);
+        }
+        updateCompareUI();
+        // Re-render after a microtask so the checkbox state is committed
+        Promise.resolve().then(() => render());
+        return;
+      }
+
+      // 2. Framework name -> modal
+      const nameEl = e.target.closest('.fw-name[data-id]');
+      if (nameEl) {
+        const fw = state.frameworks.find(f => f.id === nameEl.dataset.id);
+        if (fw) showModal(fw);
+        return;
+      }
+
+      // 3. Card click -> modal
+      const cardEl = e.target.closest('.framework-card[data-id]');
+      if (cardEl) {
+        const fw = state.frameworks.find(f => f.id === cardEl.dataset.id);
+        if (fw) showModal(fw);
+        return;
+      }
+    });
+
+    // Compare view
+    if (state.showCompareView) {
+      renderCompareView();
+    }
+  }
+
+  // ── Compare UI updates ──
+  const compareHint = document.getElementById('compare-hint');
+  const toast = document.getElementById('toast');
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.style.opacity = '1';
+    setTimeout(() => { toast.style.opacity = '0'; }, 2500);
+  }
+
+  function updateCompareUI() {
+    const size = state.compareSet.size;
+    compareCount.textContent = `${size} valda`;
+    compareCount.classList.toggle('visible', state.compareMode && size > 0);
+    compareGo.classList.toggle('visible', state.compareMode && size >= 2);
+    compareHint.style.display = state.compareMode && size === 0 ? 'inline' : 'none';
+  }
+
+  // ── Event listeners ──
+
+  // Search
+  let searchTimeout;
+  searchInput.addEventListener('input', (e) => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      state.searchQuery = e.target.value.trim();
+      render();
+    }, 150);
+  });
+
+  // Risk filter chips
+  riskFilters.addEventListener('click', (e) => {
+    const chip = e.target.closest('.filter-chip');
+    if (!chip) return;
+    riskFilters.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    state.riskFilter = chip.dataset.risk;
+    render();
+  });
+
+  // OpenClaw family filter
+  const clawFilter = document.getElementById('claw-filter');
+  clawFilter.addEventListener('click', () => {
+    const isActive = clawFilter.classList.toggle('active');
+    state.familyFilter = isActive ? 'openclaw' : '';
+    // Deactivate SE filter if claw is active
+    if (isActive) { seFilter.classList.remove('active'); state.countryFilter = ''; }
+    render();
+  });
+
+  // Swedish filter toggle
+  const seFilter = document.getElementById('se-filter');
+  seFilter.addEventListener('click', () => {
+    const isActive = seFilter.classList.toggle('active');
+    state.countryFilter = isActive ? 'se' : '';
+    // Deactivate claw filter if SE is active
+    if (isActive) { clawFilter.classList.remove('active'); state.familyFilter = ''; }
+    render();
+  });
+
+  // View toggle
+  viewToggle.addEventListener('click', (e) => {
+    const btn = e.target.closest('.view-btn');
+    if (!btn) return;
+    viewToggle.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.viewMode = btn.dataset.view;
+    render();
+  });
+
+  // Compare toggle
+  compareToggle.addEventListener('click', () => {
+    state.compareMode = !state.compareMode;
+    compareToggle.classList.toggle('active', state.compareMode);
+    if (!state.compareMode) {
+      state.compareSet.clear();
+      state.showCompareView = false;
+      compareView.classList.remove('active');
+    }
+    updateCompareUI();
+    render();
+  });
+
+  // Compare go
+  compareGo.addEventListener('click', () => {
+    state.showCompareView = true;
+    renderCompareView();
+    compareView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  // Mobile sort dropdown
+  const mobileSortSelect = document.getElementById('mobile-sort-select');
+  mobileSortSelect.addEventListener('change', (e) => {
+    const [field, dir] = e.target.value.split('-');
+    state.sortField = field;
+    state.sortDir = dir;
+    render();
+  });
+
+  // Auto-set view on mobile
+  if (window.matchMedia('(max-width: 768px)').matches) {
+    state.viewMode = 'cards';
+  }
+
+  // ── Load data ──
+  try {
+    const res = await fetch('./data/enriched.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+
+    state.frameworks = data.frameworks;
+    state.generated_at = data.generated_at;
+
+    // Meta
+    const genDate = new Date(data.generated_at);
+    meta.innerHTML = `<span class="live-dot"></span> Uppdaterad ${genDate.toLocaleDateString('sv-SE')} ${genDate.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' })}`;
+    footerNote.textContent = `${data.frameworks.length} frameworks · GitHub-data uppdateras automatiskt`;
+
+    renderHero(data.frameworks);
+    render();
+
+  } catch (err) {
+    root.innerHTML = `<div class="status">Kunde inte ladda data.<br><code>${escHtml(err.message)}</code><br><br>Kör: <code>node scripts/enrich.mjs</code></div>`;
+  }
+})();
+</script>
+
+</body>
+</html>

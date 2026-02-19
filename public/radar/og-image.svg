@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0a0a"/>
+      <stop offset="100%" stop-color="#141414"/>
+    </linearGradient>
+    <linearGradient id="gold-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#c9a55a"/>
+      <stop offset="100%" stop-color="#dfc07a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle border -->
+  <rect x="1" y="1" width="1198" height="628" rx="0" fill="none" stroke="#2a2a2a" stroke-width="1"/>
+
+  <!-- Top accent line -->
+  <rect x="0" y="0" width="1200" height="3" fill="url(#gold-grad)"/>
+
+  <!-- Radar grid decoration (subtle) -->
+  <circle cx="950" cy="315" r="180" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="950" cy="315" r="130" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="950" cy="315" r="80" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="950" y1="135" x2="950" y2="495" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="770" y1="315" x2="1130" y2="315" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Radar polygon (decorative) -->
+  <polygon points="950,165 1085,250 1060,430 840,430 815,250"
+           fill="rgba(201,165,90,0.08)" stroke="#c9a55a" stroke-width="1.5" stroke-opacity="0.4"/>
+
+  <!-- opensverige.se label -->
+  <text x="80" y="100" font-family="monospace" font-size="14" fill="#7a756f" letter-spacing="1.5">OPENSVERIGE.SE</text>
+
+  <!-- Main title -->
+  <text x="80" y="200" font-family="Georgia, serif" font-size="72" fill="#e8e0d4" font-weight="500">Agent Radar</text>
+
+  <!-- Subtitle -->
+  <text x="80" y="260" font-family="system-ui, sans-serif" font-size="24" fill="#b0a89e">Produktionsmognad, risk &amp; stabilitet</text>
+  <text x="80" y="295" font-family="system-ui, sans-serif" font-size="24" fill="#b0a89e">f&#246;r AI-agentramverk &#8212; live fr&#229;n GitHub.</text>
+
+  <!-- Stats row -->
+  <text x="80" y="380" font-family="monospace" font-size="18" fill="#c9a55a" font-weight="600">17</text>
+  <text x="115" y="380" font-family="monospace" font-size="14" fill="#7a756f">frameworks</text>
+  <text x="240" y="380" font-family="monospace" font-size="14" fill="#3a3a3a">&#183;</text>
+  <text x="260" y="380" font-family="monospace" font-size="18" fill="#c9a55a" font-weight="600">580k+</text>
+  <text x="335" y="380" font-family="monospace" font-size="14" fill="#7a756f">GitHub-stj&#228;rnor</text>
+  <text x="500" y="380" font-family="monospace" font-size="14" fill="#3a3a3a">&#183;</text>
+  <text x="520" y="380" font-family="monospace" font-size="14" fill="#7a756f">uppdateras varje natt</text>
+
+  <!-- Category chips -->
+  <rect x="80" y="420" width="50" height="26" rx="13" fill="none" stroke="#3d6080" stroke-width="1"/>
+  <text x="92" y="438" font-family="monospace" font-size="11" fill="#3d6080">RAG</text>
+
+  <rect x="145" y="420" width="100" height="26" rx="13" fill="none" stroke="#e8512d" stroke-width="1"/>
+  <text x="157" y="438" font-family="monospace" font-size="11" fill="#e8512d">Multi-agent</text>
+
+  <rect x="260" y="420" width="85" height="26" rx="13" fill="none" stroke="#c9a55a" stroke-width="1"/>
+  <text x="272" y="438" font-family="monospace" font-size="11" fill="#c9a55a">Enterprise</text>
+
+  <rect x="360" y="420" width="100" height="26" rx="13" fill="none" stroke="#dfc07a" stroke-width="1"/>
+  <text x="372" y="438" font-family="monospace" font-size="11" fill="#dfc07a">Orkestrering</text>
+
+  <rect x="475" y="420" width="70" height="26" rx="13" fill="none" stroke="#4ade80" stroke-width="1"/>
+  <text x="487" y="438" font-family="monospace" font-size="11" fill="#4ade80">L&#228;ttvikt</text>
+
+  <!-- FOSS badge -->
+  <text x="80" y="540" font-family="monospace" font-size="13" fill="#7a756f">FOSS &#183; community-drivet &#183; opensverige.se/radar</text>
+
+  <!-- Swedish flag hint -->
+  <text x="80" y="580" font-size="28">&#127480;&#127466;</text>
+  <text x="120" y="576" font-family="system-ui, sans-serif" font-size="14" fill="#3a3a3a">F&#246;r svenska builders</text>
+</svg>
