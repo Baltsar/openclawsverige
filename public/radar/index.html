@@ -78,6 +78,19 @@
     margin: 0 auto;
   }
 
+  .radar-back-nav {
+    margin-bottom: 24px;
+  }
+  .radar-back-nav a {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--text-secondary);
+    text-decoration: none;
+  }
+  .radar-back-nav a:hover {
+    color: var(--gold);
+  }
+
   /* ── Header ── */
   .page-label {
     font-family: var(--font-mono);
@@ -1283,6 +1296,10 @@
 
 <div class="container">
 
+  <nav class="radar-back-nav" aria-label="Tillbaka till sajten">
+    <a href="https://opensverige.se/">← Tillbaka till opensverige.se</a>
+  </nav>
+
   <!-- opensverige.se intro (compact) -->
   <div class="site-intro">
     <span class="site-intro-name">open<span>sverige</span>.se</span>
@@ -2197,7 +2214,7 @@
 
   // ── Load data ──
   try {
-    const res = await fetch('./data/enriched.json');
+    const res = await fetch('/radar/data/enriched.json');
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
 
