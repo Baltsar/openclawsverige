@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SiteNav } from "@/components/landing/site-nav";
 
 const DISCORD_URL = "https://discord.gg/CSphbTk8En";
 const FACEBOOK_URL = "https://www.facebook.com/groups/2097332881024571/";
@@ -9,15 +10,8 @@ export default function HomePage() {
     <main className="min-h-screen">
       <div className="page">
         <div className="site-mockup">
-          {/* 1. NAV */}
-          <nav className="site-nav">
-            <Link href="/" className="site-nav-logo">open<span>sverige</span></Link>
-            <div className="site-nav-right">
-              <Link className="site-nav-link" href="/blogg">Blogg</Link>
-              <Link className="site-nav-link" href="/manifest">Manifestet</Link>
-              <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ padding: "var(--sp-2) var(--sp-5)", fontSize: "13px" }}>Discord →</a>
-            </div>
-          </nav>
+          {/* 1. NAV — hamburger + Discord */}
+          <SiteNav />
 
           {/* 2. HERO — no stats-bar */}
           <div className="site-hero">
@@ -38,9 +32,8 @@ export default function HomePage() {
 
           {/* 3. HOOK — statement; last line = punch in Playfair + gold (brandguide typography) */}
           <div className="hook-statement hero-to-hook section">
-            <p className="hook-line">Inga sponsorpitchar. Inga slides med företagsloggor.</p>
-            <p className="hook-line">Inga titlar. Ingen pitch-arena.</p>
-            <p className="hook-punch">Bara folk som sitter ner och bygger saker.</p>
+            <p className="hook-line">Fika, fokus och show & tell. Ingen scen, ingen pitch — bara byggtid tillsammans.</p>
+            <p className="hook-punch">Folk som sitter ner och bygger saker.</p>
           </div>
 
           {/* 4. Två ben — grid-2 only; label från brandguide */}
@@ -63,7 +56,7 @@ export default function HomePage() {
 
           {/* 5. MITT-CTA — social proof; t-mono.stats enligt brandguide */}
           <div className="mitt-cta">
-            <p className="mitt-cta-line t-mono stats">50 builders. 12 skills. Meetups i 3 städer.</p>
+            <p className="mitt-cta-line t-mono stats">+100 Svenska Builders</p>
             <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary">Gå med i Discord →</a>
           </div>
 

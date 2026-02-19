@@ -1,4 +1,5 @@
 import { BlogCard } from "@/components/blog/blog-card";
+import { BlogEmptyState } from "@/components/blog/blog-empty-state";
 import { getPosts } from "@/lib/blog";
 import type { Metadata } from "next";
 
@@ -27,7 +28,7 @@ export default function BloggPage() {
               Tankar och guider om AI-agenter och communityt.
             </p>
             {posts.length === 0 ? (
-              <p style={{ color: "var(--text-muted)" }}>Inga inlägg ännu.</p>
+              <BlogEmptyState />
             ) : (
               <ul
                 className="grid-2"
